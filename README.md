@@ -1,62 +1,44 @@
 # CPSC 419: Command-line Application
-## Due Friday Feb 24 11:59 PM NHT (New Haven Time)
+
+## Due Friday Sep 29 11:59 PM NHT (New Haven Time)
 
 ## Table of Contents
-* [Purpose](#purpose)
-* [Rules](#rules)
-* [Getting Started](#getting-started)
-* [Your Task](#your-task)
-* [The Database](#the-database)
-    * [Database Schema](#database-schema)
-    * [English Description](#english-description)
-* [The `lux.py` Program](#the-luxpy-program)
-* [The `luxdetails.py` Program](#the-luxdetailspy-program)
-* [Source Code Guide](#source-code-guide)
-* [Input Specification](#input-specification)
-* [Error Handling](#error-handling)
-* [Testing](#testing)
-    * [Boundary Testing](#boundary-testing)
-    * [Statement Testing](#statement-testing)
-    * [Test Automation](#test-automation)
-    * [Unit Testing](#unit-testing)
-* [Program Style](#program-style)
-* [Advice](#advice)
-* [Submission](#submission)
-    * [Late Submissions](#late-submissions)
-    * [Grading](#grading)
 
-## Due Friday Feb 24 11:59 PM NHT (New Haven Time)
-
-## Table of Contents
-* [Purpose](#purpose)
-* [Rules](#rules)
-* [Getting Started](#getting-started)
-* [Your Task](#your-task)
-* [The Database](#the-database)
-    * [Database Schema](#database-schema)
-    * [English Description](#english-description)
-* [The `lux.py` Program](#the-luxpy-program)
-* [The `luxdetails.py` Program](#the-luxdetailspy-program)
-* [Source Code Guide](#source-code-guide)
-* [Input Specification](#input-specification)
-* [Error Handling](#error-handling)
-* [Testing](#testing)
-    * [Boundary Testing](#boundary-testing)
-    * [Statement Testing](#statement-testing)
-    * [Test Automation](#test-automation)
-    * [Unit Testing](#unit-testing)
-* [Program Style](#program-style)
-* [Advice](#advice)
-* [Submission](#submission)
-    * [Late Submissions](#late-submissions)
-    * [Grading](#grading)
+- [CPSC 419: Command-line Application](#cpsc-419-command-line-application)
+  - [Due Friday Sep 29 11:59 PM NHT (New Haven Time)](#due-friday-sep-29-1159-pm-nht-new-haven-time)
+  - [Table of Contents](#table-of-contents)
+  - [Purpose](#purpose)
+  - [Rules](#rules)
+  - [Getting Started](#getting-started)
+  - [Your Task](#your-task)
+  - [The Database](#the-database)
+    - [Database Schema](#database-schema)
+    - [English Description](#english-description)
+  - [The `lux.py` Program](#the-luxpy-program)
+  - [The `luxdetails.py` Program](#the-luxdetailspy-program)
+  - [Source Code Guide](#source-code-guide)
+  - [Input Specification](#input-specification)
+  - [Error Handling](#error-handling)
+  - [Testing](#testing)
+    - [Boundary Testing](#boundary-testing)
+    - [Statement Testing](#statement-testing)
+    - [Test Automation](#test-automation)
+    - [Unit Testing](#unit-testing)
+  - [Program Style](#program-style)
+  - [Advice](#advice)
+  - [Submission](#submission)
+  - [**_Submit your assignment solution to Canvas as a link to that release._**](#submit-your-assignment-solution-to-canvas-as-a-link-to-that-release)
+    - [Late Submissions](#late-submissions)
+    - [Grading](#grading)
 
 
 ## Purpose
+
 The purpose of this assignment is to help you learn or review database programming in Python.
 If done properly, the assignment also will give you practice at composing modular code.
 
 ## Rules
+
 You must work on this assignment as a group of two students.
 If you have not found or been assigned a partner by the time you read this, please let an instructor know.
 
@@ -66,6 +48,7 @@ Your `README` file and your source code files must contain your name and your te
 See below in the [Submission](#submission) section for details on what and how to submit.
 
 ## Getting Started
+
 > **Note**: this section contains exactly the text on the Canvas assignment, reproduced here only for completeness of this document.
 > Since you made it here, you can safely ignore this section.
 
@@ -78,7 +61,7 @@ To get started, you must follow the steps below to successfully set up you group
     * This step links your group to the canvas assignment.
     * Once this step is finished, only one of you will submit the assignment!
 
-1. Accept [this GitHub classroom assignment](https://classroom.github.com/a/lKAlUjTA).
+2. Accept [this GitHub classroom assignment](TODO: LINK TBD).
     * GitHub classroom will yet again ask you to create a team, whether you will be working in pairs or individually.
         * **Name this team identically to your Canvas group**, *e.g.* "Pset Partner Group 13".
     * Let your other team member join your team.
@@ -86,13 +69,14 @@ To get started, you must follow the steps below to successfully set up you group
         * If you do not have a GitHub account, you are required to create one for this course
     * Use this git repository to track your assignment development.
 
-1. Download the `lux.sqlite` database file from Canvas and place it in your new repository folder.
+3. Download the `lux.sqlite` database file from Canvas and place it in your new repository folder.
     > **Important**: Do not track `lux.sqlite` in your git repository.
     > It is too large to be hosted on GitHub and recovering from an error telling you that is challenging at best.
     > The included `.gitignore` file in the template repository will help with this, so *do not change or remove* that file.
     > You may keep the database file in the repository folder, but you must be careful not to *track* it.
 
 ## Your Task
+
 Any museum must maintain data about objects and artwork they have in their collection.
 Those data typically are kept in a database.
 The museum's curator must provide an interface that allows visitors and other interested parties to query the database.
@@ -106,9 +90,11 @@ The next assignments will ask you to enhance your programs in a few ways, perhap
 So it will be to your advantage to modularize your code so you easily can replace the textual interfaces with a graphical one.
 
 ## The Database
+
 The database is a SQLite database that is stored in a file named `lux.sqlite`.
 
 ### Database Schema
+
 That file is provided as an attachment to this assignment, and its schema is in the image below (also available as an attachment to this assignment in the file `images/lux_database.png`).
 
 ![Schema of Lux Database](images/lux_database.png)
@@ -179,6 +165,7 @@ The database consists of these tables and fields:
     * `nat_id` (foreign key, references `nationalities.id`)
 
 ### English Description
+
 In plain English, the database is organized as follows.
 
 Every object (painting, sculpture, drawing, book, *etc.*) in the YUAG collection has a corresponding row in the `objects` table.
@@ -227,20 +214,21 @@ There are hundreds of thousands of rows in the database.
 It might benefit you to vist the gallery in person to get a sense of the scale, depth, and kinds of things you'll find in the database, and to give yourself ideas for test inputs.
 
 ## The `lux.py` Program
-You must compose two programs.
-The first program must be named `lux.py`.
+
+You must compose two programs, the first of which must be named `lux.py`.
 This program will display in the console a table of objects filtered by department, agent, classification, and title.
 
 Here are the requirements for the behavior of your `lux.py` program.
 
 When executed via a command such as `python lux.py -h`, your program must display the following help message:
+
 ```
-usage: lux.py [-h] [-d dep] [-a agt] [-c cls] [-l label]
+usage: lux.py [-h] [-d date] [-a agt] [-c cls] [-l label]
 
                 options:
                 -h, --help show this help message and exit
-                -d dep show only those objects whose department label contains department
-                -a agt show only those objects produced by an agent with name containing agentname
+                -d date show only those objects whose date contains date
+                -a agt show only those objects produced by an agent with name containing agt
                 -c cls show only those objects classified with a classifier having a name containing cls
                 -l label show only those objects whose label contains label
 ```
@@ -250,44 +238,33 @@ usage: lux.py [-h] [-d dep] [-a agt] [-c cls] [-l label]
 > The help message may differ slightly based on your platform or version; do not worry about that&mdash;we are looking for the default behavior of `argparse`.
 
 The output of your program must be contain the following information about each object satisfying the search criteria:
+
 1. The object's `id`
-1. The object's `label`
-1. A comma-separated list containing the `name` of each agent associated with the object, and the `part` each agent produced in the format `"{name} ({part})"`, sorted in ascending order of the agent's name then in ascending order of the part
-1. The object's `date`
-1. A list containing the `name` of each department of which the object is a member
-    * Each department's name must be on its own line
-1. A list containing the `name` of each classifier for the object, sorted in ascending order
+2. The object's `label`
+4. The object's `date`
+3. A list containing the `name` of each agent associated with the object, and the `part` each agent produced in the format `"{name} ({part})"`, sorted in ascending order of the agent's name then in ascending order of the part
+    * Each agent/part pair must be on its own line
+5. A list containing the `name` of each classifier for the object, sorted in ascending order
     * Each classifier must be on its own line
 
 The first line of output must indicate the number of objects shown, such as `"Search produced {count} objects."`.
 Below that, the output must have the appearance of a table, similar to the view produced by the `sqlite3` command-line tool when a query is executed.
 The specifics of the formatting are up to you, but there are a few guidelines it must follow.
+
 * Each column must have a header row, with the following headers:
     1. "ID"
-    1. "Label"
-    1. "Produced By"
-    1. "Date"
-    1. "Member Of"
-    1. "Classified As"
-* The header row must be visually separated by at least one line
+    2. "Label"
+    4. "Date"
+    3. "Produced By"
+    5. "Classified As"
+* The header row must be visually separated by at least one line from the rest of the table
 * Columns of the table must be visually separated by at least 1 character
 * No line of output may be more than 100 characters long, or the width of the terminal (whichever is smaller)
-    * Hint: use the `shutil.get_terminal_size()` function to query the size of the terminal
+    > **Hint**: use the `shutil.get_terminal_size()` function to query the size of the terminal
 * The courses in the table must be sorted according to the options provided at the command line.
     * No matter what options are specified at the command line, the primary sort of the table must be in ascending order of object `label`s and the secondary sort must be in ascending order of object `date`s
-    * If the `-a` option is specified, the table must be sorted by agent names in ascending order, then by agent parts in ascending order
-    * If the `-d` option is specified, the table must be sorted by the department names in ascending order
-    * If the `-c` option is specified, the table must be sorted by classifier names in ascending order
-    * Tertiary orderings after all command-line options are exhausted must be applied in the same order as above, skipping those that have already been applied.
 * The program output should never exceed 1000 objects
 * The output of the program, when run with no arguments, must include the first 1000 objects in the database according to the sorting orders specified above
-
-> **Note**: The sorting rules *cascade*; that is, the output of the command 
->```
->$ python lux.py -c painting -a gogh
->```
-> must be sorted first by object label/date, then by agent name/part, then by classifier, then by department name.
-<hr />
 
 > **Note**: Precisely formatting textual output as a table is tedious and in this particular case requires some pretty intricate code.
 > Since the goal of this assignment is to teach you how to interact with a database and not how to write sneaky formatting code, we have provided for your use a module named `table.py` that you may use to format your table output.
@@ -300,8 +277,8 @@ The specifics of the formatting are up to you, but there are a few guidelines it
 
 The program must accept any combination of the `-d`, `-a`, `-c`, and `-l` arguments (each appearing at most one time).
 Their meaning is as follows:
-* `-d dept` filters objects to those that are a member of a department with name containing `dept`
-* `-a agent` filters objects to those produced by an agent with name containing `agent`
+* `-d date` filters objects to those with date field containing `date`
+* `-a agt` filters objects to those produced by an agent with name containing `agt`
 * `-c cls` filters objects to those classified by a name containing `cls`
 * `-l label` filters objects to those whose label contains `label`
 
@@ -338,19 +315,22 @@ options:
 The output of your `luxdetails.py` program must be divided into several sections, each separated from the previous one by a single blank line.
 The header for a section must be on its own line
 Those sections are:
-* A section with header "Label", containing the object's label
+* A section with header "Summary", containing a single-row table with the following column headers and content:
+    * "Accession No.", containing the accession number of the object
+    * "Date", containing the object's date
+    * "Place", containing the object's place
+    * "Department", containing the object's department
+* A section with header "Label" containing the object's label
 * A section with header "Produced By", containing a table with details of all agents that produced this object.
     The table must have the following column headers and content:
-    * "Part", containing the part of the production carried out by each agent
+    * "Part", containing the part(s) of the production carried out by each agent
     * "Name", containing the name of each agent
     * "Nationalities", containing all nationalities of each agent, each on its own line
     * "Timespan", containing the *year* of each agent's `begin_date` and the *year* of each agent's `end_date`, separated by an *en dash* character ('&ndash;', `"\u2013"`)
         * Some agents are still alive/active; in those cases the Timespan column must contain text such as "1967&ndash;"
-* A section with label "Metadata", containing a single-row table with the following column headers and content:
-    * "Accession No.", containing the accession number of the object
-    * "Date", containing the object's date
-    * "Place", containing the object's place
-* A section with header "Classification", containing a comma-separated list of all classifiers for the object
+    * This list must be sorted in ascending order of agent name, then part, and finally by nationality
+* A section with header "Classified As", containing a list of all classifiers for the object, with one per line
+  * This list must be sorted in ascending order of the classifier name
 * A section with header "Information", containing a table of all `references` to the object, with two columns: "Type" and "Content" (with the obvious values)
 
 > **Note**: Some reference contents contain HTML-like content.
@@ -360,6 +340,7 @@ Those sections are:
 > **Note**: As with your output from `lux.py`, the width of the output of `luxdetails.py` must not exceed the smaller of 100 characters or the width of the terminal.
 
 ## Source Code Guide
+
 Here are the *requirements* for the source code of your solution.
 * The program must communicate with a SQLite database in a file named `lux.sqlite`, organized as described above.
 * The program must use SQL prepared statements for every database query.
@@ -368,7 +349,8 @@ Here are the *requirements* for the source code of your solution.
     * Note that this implies that it must also use exactly one database `connection` object!
 
 Here are some *recommendations* for the source code of your solution.
-They are examples of good style that your program will be partly graded on.
+They are examples of good style on which your program will be partially graded.
+
 * Modularize your code extensively so that your "main" function looks something like this:
 ```python
 def main():
@@ -379,25 +361,28 @@ def main():
 * Encapsulate database code and print statements inside modules that can be replaced if you decide to display courses in a different fashion or retrieve the data from a different source.
 
 ## Input Specification
+
 You may assume the users of your `lux.py` and `luxdetails.py` programs are acting "in good faith". In particular, you may assume...
 
 * The user will only ever provide arguments at the command line that conform to the allowed arguments:
-    * The only provided arguments will be `-h`, `-d dept`, `-a agent`, `-c cls`, and `-l label` for `lux.py`
+    * The only provided arguments will be `-h`, `-d date`, `-a agt`, `-c cls`, and `-l label` for `lux.py`
     * The only provided argument will be a single positional argument or the `-h` flag for `luxdetails.py`
-    * The database exists in a file named `lux.sqlite` and is well-formed according to the database specification above
+* The database exists in a file named `lux.sqlite` and is well-formed according to the database specification above
 
 However, you may *not* assume...
+
 * That there are any objects at all in the database
 * That the single argument to `luxdetails.py` is a numeric argument
 * That the single argument to `luxdetails.py`, even if it is numeric, corresponds to an object in the database
 
 ## Error Handling
+
 Despite the assumptions you may make about input, your `lux.py` and `luxdetails.py` should be reasonably robust.
 Since we haven't discussed error handling in this course, whatever previous experience you have handling errors will be sufficient for this assignment.
 Keep in mind that as we progress through the course, error handling will become more important (and the specification of program input more relaxed!).
 
 The following recommendations are provided only for your benefit of cases to consider as potentially program-breaking.
-We will not test your program on such inputs.
+We will not test your program on such inputs, but we encourage you to design your solution to handle them nonetheless.
 
 Your `lux.py` could handle erroneous command-line arguments "gracefully". These commands illustrate:
 ```
@@ -449,17 +434,20 @@ If the database is corrupted such that the SQLite driver's execution of a `SELEC
 > The second could happen if, for example, the `lux.sqlite` file is present but empty.
 
 ## Testing
+
 We'll take a slightly more systematic approach to software testing techniques in lectures later in the semester.
 In the meantime, to test your programs it will be sufficient to rely upon (1) your knowledge of testing from your previous experience, and (2) this [A Software Testing Taxonomy](docs/TestingTaxonomy.pdf) document, courtesy of Princeton University.
 
 Test your `lux.py` and `luxdetails.py` programs by (1) reviewing this assignment specification thoroughly, making sure that your programs conform to every aspect of it, and (2) comparing the behavior of your program with the example outputs that will be released in the coming days.
 
 ### Boundary Testing
+
 Focus on boundary (alias corner case) testing.
 Of course, make sure that your programs handle normal data.
 But also make sure that your programs handle unusual data: objects that have no references, lots of references, agents with several nationalities, and so forth.
 
 ### Statement Testing
+
 Next, focus on statement (alias coverage) testing.
 Your tests should cause every statement of your `lux.py` and `luxdetails.py` to be executed.
 
@@ -477,6 +465,7 @@ You're encouraged, but not required, to use the Python `coverage` tool to genera
     If the report doesn't show 100% coverage, then we recommend that you revise your testing plan accordingly, delete the `.coverage` file and the `htmlcov` directory, and repeat steps 1 through 5.
 
 ### Test Automation
+
 You are encouraged, but not required, to automate your testing.
 Automating your testing could reduce the amount of typing that you must do, and also could increase the quality of your programs.
 It's also likely to save you time in future assignments to have some automated test scaffolding built early on.
@@ -499,17 +488,19 @@ You might automate your testing of `luxdetails.py` in a similar way.
 Incidentally, if you're clever you could use your `testlux.py` and `testluxdetails.py` programs to generate your coverage report.
 
 ### Unit Testing
+
 The kind of testing described above, in which the entire program is repeatedly run and the output compared to correct output, is called *system testing*.
-You probably will notice that generating correct output files is quite challenging.
+You probably will notice that generating correct output files against which to compare your program's output is quite challenging and error-prone.
 A more scalable method of testing is called *unit testing*.
 
 In unit testing, rather than testing the behavior of the project as a whole, each "unit" (*e.g.* function) is tested in isolation.
 By doing so, correctness can be assessed with much finer granularity than simply running the whole program.
-The beauty of unit testing is that if each individual function is correct, then the entire program is correct (because if you followed Python convention, the entire program is enclosed in an single function, `main()`)!
+The beauty of unit testing is that if every individual function is correct, then the entire program is correct (because if you followed Python convention, the entire program is enclosed in an single function, `main()`)!
 
 Unit testing will be covered briefly later in the semester; for now, it is sufficient to read a blog post or two and study briefly the documentation for the Python `unittest` module.
 
 ## Program Style
+
 Your programs must be well styled.
 Generally, by consensus of the Python community, good Python style is defined by the [PEP 8 -- Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/) website.
 
@@ -536,6 +527,7 @@ So the "all files at the same time" approach may generate warnings in addition t
 Make sure you use the "all files at the same time" approach, as your grader will.
 
 ## Advice
+
 The command-line format of `lux.py` is incomplete in the logical sense.
 Most notably the format doesn't allow the user to express `OR` relationships in queries.
 For example, the format doesn't allow the user to express queries of the form "Display data for all objects whose classification is 'sculpture' OR 'painting'" or "Display all objects that were produced by 'van Gogh' OR 'hals'."
@@ -552,8 +544,10 @@ If it doesn't, then your program will create more work for our graders, putting 
 The same goes for your `luxdetails.py`.
 
 ## Submission
-Replace this file with a new `README.md` file.
-The file must contain:
+
+Rename this file `TEMPLATE_README.md` and replace it with a new `README.md` file.
+Your new `README` file must contain:
+
 * Your name and netid and your teammate's name and netid, at the beginning of the file
 * A paragraph describing your contribution, and another paragraph describing your teammate's contribution
     * Please be thorough; we are looking for two substantial paragraphs, not a sentence or two
@@ -588,7 +582,6 @@ Ensure that any additional files needed by your program (such as other Python mo
 <hr/>
 
 ## **_Submit your assignment solution to Canvas as a [link to that release](https://docs.github.com/en/repositories/releasing-projects-on-github/linking-to-releases)._**
-<hr />
 
 As noted above in the [Rules](#rules) section, it must be the case that either you submit all of your team's files or your teammate submits all of your team's files.
 (It must not be the case that you submit some of your team's files and your teammate submits some of your team's files.)
@@ -599,31 +592,29 @@ It will be a big help to us if you get the filenames right and submit exactly wh
 Thanks.
 
 ### Late Submissions
-The deadline for this assignment is **11:59 PM NHT (New Haven Time) on Feb 24, 2023**.
+
+The deadline for this assignment is **11:59 PM NHT (New Haven Time) on Sep 29, 2023**.
 There is a strict 15 minute grace period beyond the deadline, to be used in case of technical or administrative difficulties, and not for putting final touches on your solution.
 (If you can do it in as little as 15 minutes, it probably is insignificant enough not to change your grade.)
 
 Late submissions will receive a 5% deduction for every 12-hour period (or part thereof) after the deadline.
 After 72 hours, the Canvas assignment will close and submissions after that time will not receive any credit.
 
-Except for submissions after the 72-hour deadline (which are not accepted), the timestamp on the commit associated with the linked release will determine what late penalties, if any, are applied.
+Except for submissions after the 72-hour deadline (*which are not accepted*), the timestamp on the commit associated with the linked release will determine what late penalties, if any, are applied.
 
 ### Grading
+
 Your grade will be based upon:
 
 * Correctness, that is, how closely your programs conform to the specifications in this document.
-* Style, that is, the quality of your program style.
-    This includes not only style as qualitatively assessed by the graders (including modularity, cleanliness, and algorithmic efficiency) but also style as reported by the pylint tool, using the default settings, and when executed via the command `python -m pylint **/*.py`.
-    * Ten percent of your grade will be based upon the quality of your program style as reported by pylint.
-        Your grader will start with the 10-point score reported by pylint.
-        Your pylint style grade is your pylint score rounded to the nearest integer (minimum 0).
-        For example, if your pylint score is 9.8, then your pylint style grade will be 10; if your pylint score is 7.4, then your pylint style grade will be 7.
+* Style, that is, the quality of your program style. This includes not only style as qualitatively assessed by the graders (including modularity, cleanliness, and algorithmic efficiency) but also style as reported by the pylint tool, using the default settings, and when executed via the command `python -m pylint **/*.py`.
+    * Ten percent of your grade will be based upon the quality of your program style as reported by pylint. Your grader will start with the 10-point score reported by pylint. Your pylint style grade is your pylint score rounded up to the next integer (minimum 0). For example, if your pylint score is 9.1, then your pylint style grade will be 10; if your pylint score is 7.7, then your pylint style grade will be 8.
 
 If your code fails the tests on some particular functionality, your grader will inspect your code manually to try to assign partial credit for that functionality.
 Partial credit will be given only if there is an *obvious* "quick fix" (*e.g.*, you have accidentally changed the name of the database file and your solution points to a file with a name that does not match the grader's copy of the database); if no such quick fix exists then no partial credit for that feature will be given.
 
 <hr/>
 
-Original copyright &copy; 2021 by Robert M. Dondero, Jr.
+Adapted from Assignment 1 for COS 333 &copy; 2021 by Robert M. Dondero, Jr., Princeton University
 
-Modified &copy; 2023 by Alan Weide
+This version &copy; 2023 by Alan Weide, Yale University
