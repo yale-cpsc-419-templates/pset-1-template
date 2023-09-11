@@ -75,6 +75,8 @@ To get started, you must follow the steps below to successfully set up you group
     > The included `.gitignore` file in the template repository will help with this, so *do not change or remove* that file.
     > You may keep the database file in the repository folder, but you must be careful not to *track* it.
 
+    * One possible alternative to keeping the databse file directly in your repository is to keep it in a different folder and store only a [link](https://man7.org/linux/man-pages/man1/ln.1.html) to the "real" database file. Doing so would eliminate the need to copy the very-large file for each of your assignments.
+
 ## Your Task
 
 Any museum must maintain data about objects and artwork they have in their collection.
