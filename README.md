@@ -244,9 +244,9 @@ The output of your program must be contain the following information about each 
 1. The object's `id`
 2. The object's `label`
 4. The object's `date`
-3. A list containing the `name` of each agent associated with the object, and the `part` each agent produced in the format `"{name} ({part})"`, sorted in ascending order of the agent's name then in ascending order of the part
+3. A list containing the `name` of each agent associated with the object, and the `part` each agent produced in the format `"{name} ({part})"`, sorted in ascending alphabetical order of the agent's name then in ascending order of the part
     * Each agent/part pair must be on its own line
-5. A list containing the `name` of each classifier for the object, sorted in ascending order
+5. A list containing the `name` of each classifier for the object, sorted in ascending alphabetical order
     * Each classifier must be on its own line
 
 The first line of output must indicate the number of objects shown, such as `"Search produced {count} objects."`.
@@ -263,19 +263,19 @@ The specifics of the formatting are up to you, but there are a few guidelines it
 * Columns of the table must be visually separated by at least 1 character
 * No line of output may be more than 100 characters long, or the width of the terminal (whichever is smaller)
     > **Hint**: use the `shutil.get_terminal_size()` function to query the size of the terminal
-* The courses in the table must be sorted according to the options provided at the command line.
-    * No matter what options are specified at the command line, the primary sort of the table must be in ascending order of object `label`s and the secondary sort must be in ascending order of object `date`s
+* The primary sort of the table must be in ascending order of object `label`s and the secondary sort must be in ascending alphabetical order of object `date`s
 * The program output should never exceed 1000 objects
 * The output of the program, when run with no arguments, must include the first 1000 objects in the database according to the sorting orders specified above
 
 > **Note**: Precisely formatting textual output as a table is tedious and in this particular case requires some pretty intricate code.
 > Since the goal of this assignment is to teach you how to interact with a database and not how to write sneaky formatting code, we have provided for your use a module named `table.py` that you may use to format your table output.
 > You do not have to do so, and you may find it easier to "roll your own" or to leverage a third-party package from the Python community.
+> (As a reminder, if you use a package that is not part of the Python Standard Library, you must cite it.)
 <hr />
 
 > **Note**: Each *row* of the displayed table might span multiple *lines* of output if, for example, the object's label is very long or if there are many agents associated with the object.
 > The provided `table.py` uses the `textwrap` module from the Python standard library to handle this, and it is recommended that you also do so if you choose not to use `table.py`.
-> If there is a row of the table that spans multiple lines of output, every line break in that row must occur at a word boundary, and never in the middle of a word.
+> If there is a row of the table that spans multiple lines of output, every line break in that row must occur at a word boundary, and never in the middle of a word, unless the width is so restricted as to render this impossible.
 
 The program must accept any combination of the `-d`, `-a`, `-c`, and `-l` arguments (each appearing at most one time).
 Their meaning is as follows:
@@ -292,7 +292,7 @@ Filters must include leading and trailing whitespace, that is, the argument `-l 
 
 > **Note**: Separate words on the command line are interpreted as separate command-line arguments, *not* single multi-word arguments unless they are surrounded by quotes.
 The argument list `-a van gogh -c painting` is invalid and your program does not need to handle it.
-On the other hand, the argument list `-a 'van gogh' -c painting` *is* valid and your program must filter objects having agent names that contain "van gogh" and classifier containing "painting".
+On the other hand, the argument list `-a 'van gogh' -c painting` *is* valid and your program must filter objects having agent names that contain "van gogh" and a classifier containing "painting".
 
 ## The `luxdetails.py` Program
 
@@ -330,9 +330,9 @@ Those sections are:
     * "Nationalities", containing all nationalities of each agent, each on its own line
     * "Timespan", containing the *year* of each agent's `begin_date` and the *year* of each agent's `end_date`, separated by an *en dash* character ('&ndash;', `"\u2013"`)
         * Some agents are still alive/active; in those cases the Timespan column must contain text such as "1967&ndash;"
-    * This list must be sorted in ascending order of agent name, then part, and finally by nationality
+    * This list must be sorted in ascending alphabetical order of agent name, then part, and finally by nationality
 * A section with header "Classified As", containing a list of all classifiers for the object, with one per line
-  * This list must be sorted in ascending order of the classifier name
+  * This list must be sorted in ascending alphabetical order of the classifier name
 * A section with header "Information", containing a table of all `references` to the object, with two columns: "Type" and "Content" (with the obvious values)
 
 > **Note**: Some reference contents contain HTML-like content.
