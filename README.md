@@ -61,15 +61,16 @@ To get started, you must follow the steps below to successfully set up you group
     * This step links your group to the canvas assignment.
     * Once this step is finished, only one of you will submit the assignment!
 
-2. Accept [this GitHub classroom assignment](TODO).
+2. Accept [this GitHub classroom assignment](https://classroom.github.com/a/GzwezjsU).
     * GitHub classroom will yet again ask you to create a team, whether you will be working in pairs or individually.
         * **Name this team identically to your Canvas group**, *e.g.* "Biweekly Assignment Group 13".
     * Let your other team member join your team.
     * This step creates a GitHub repository for your team and links your team members' GitHub ids.
         * If you do not have a GitHub account, you are required to create one for this course
     * Use this git repository to track your assignment development.
+    * If you have never used Git before, or if you'd simply like some additional experience, complete the [Git/GitHub Primer](https://classroom.github.com/a/KnMlxgKP). There is no due date and it is not graded. 
 
-3. Download the [`lux.sqlite`](TODO) database file from Canvas and place it in your new repository folder.
+3. Download the [`lux.sqlite`](https://yale.instructure.com/files/8452647/download?download_frd=1) database file from Canvas and place it in your new repository folder.
     > **Important**: Do not track `lux.sqlite` in your git repository.
     > It is too large to be hosted on GitHub and recovering from an error telling you that is challenging at best.
     > The included `.gitignore` file in the template repository will help with this, so *do not change or remove* that file.
