@@ -1,11 +1,11 @@
 # CPSC 419: Command-line Application
 
-## Due Friday Sep 29 11:59 PM NHT (New Haven Time)
+## Due Friday Feb 9 11:59 PM NHT (New Haven Time)
 
 ## Table of Contents
 
 - [CPSC 419: Command-line Application](#cpsc-419-command-line-application)
-  - [Due Friday Sep 29 11:59 PM NHT (New Haven Time)](#due-friday-sep-29-1159-pm-nht-new-haven-time)
+  - [Due Friday Feb 9 11:59 PM NHT (New Haven Time)](#due-friday-feb-9-1159-pm-nht-new-haven-time)
   - [Table of Contents](#table-of-contents)
   - [Purpose](#purpose)
   - [Rules](#rules)
@@ -55,21 +55,21 @@ See below in the [Submission](#submission) section for details on what and how t
 To get started, you must follow the steps below to successfully set up you group and download the template files.
 
 1. Register your biweekly pset group on Canvas.
-    * You can do this by going to People -> Groups and joining a group named "Pset Partner Group #" ([guide](https://guides.instructure.com/m/4212/l/64913-how-do-i-join-a-group-as-a-student)).
+    * You can do this by going to People -> Groups and joining a group named "Biweekly Assignment Group #" ([guide](https://guides.instructure.com/m/4212/l/64913-how-do-i-join-a-group-as-a-student)).
         * Make sure that both you and your partner are in the same group!
         * **Even if you work alone, sign up to a group.**
     * This step links your group to the canvas assignment.
     * Once this step is finished, only one of you will submit the assignment!
 
-2. Accept [this GitHub classroom assignment](https://classroom.github.com/a/racRxjxV).
+2. Accept [this GitHub classroom assignment](TODO).
     * GitHub classroom will yet again ask you to create a team, whether you will be working in pairs or individually.
-        * **Name this team identically to your Canvas group**, *e.g.* "Pset Partner Group 13".
+        * **Name this team identically to your Canvas group**, *e.g.* "Biweekly Assignment Group 13".
     * Let your other team member join your team.
     * This step creates a GitHub repository for your team and links your team members' GitHub ids.
         * If you do not have a GitHub account, you are required to create one for this course
     * Use this git repository to track your assignment development.
 
-3. Download the [`lux.sqlite`](https://yale.instructure.com/courses/88061/files/8200998) database file from Canvas and place it in your new repository folder.
+3. Download the [`lux.sqlite`](TODO) database file from Canvas and place it in your new repository folder.
     > **Important**: Do not track `lux.sqlite` in your git repository.
     > It is too large to be hosted on GitHub and recovering from an error telling you that is challenging at best.
     > The included `.gitignore` file in the template repository will help with this, so *do not change or remove* that file.
@@ -214,6 +214,7 @@ Column `url` refers to a file (a JSON file) containing additional information ab
 **Your first step must be to familiarize yourself with the database.**
 There are hundreds of thousands of rows in the database.
 It might benefit you to vist the gallery in person to get a sense of the scale, depth, and kinds of things you'll find in the database, and to give yourself ideas for test inputs.
+The SQL/Lux Bootcamp assignment will also serve to lay a foundation for your understanding of the database.
 
 ## The `lux.py` Program
 
@@ -245,7 +246,7 @@ The output of your program must be contain the following information about each 
 2. The object's `label`
 4. The object's `date`
 3. A list containing the `name` of each agent associated with the object, and the `part` each agent produced in the format `"{name} ({part})"`, sorted in ascending alphabetical order of the agent's name then in ascending order of the part
-    * Each agent/part pair must be on its own line
+    * The agent/part pairs must appear in a comma-separated list
 5. A list containing the `name` of each classifier for the object, sorted in ascending alphabetical order
     * Each classifier must be on its own line
 
@@ -298,6 +299,7 @@ On the other hand, the argument list `-a 'van gogh' -c painting` *is* valid and 
 
 Your second program must be named `luxdetails.py`.
 This program will take as input the `id` of an object and print details about it, including the object label, accession number, date, place, agents, departments, classifications, and references.
+If the `id` is not that of an object in the database, your program must display a meaningful message and exit.
 
 Here are the requirements for the behavior of your `luxdetails.py` program.
 
@@ -328,8 +330,8 @@ Those sections are:
     * "Part", containing the part(s) of the production carried out by each agent
     * "Name", containing the name of each agent
     * "Nationalities", containing all nationalities of each agent, each on its own line
-    * "Timespan", containing the *year* of each agent's `begin_date` and the *year* of each agent's `end_date`, separated by an *en dash* character ('&ndash;', `"\u2013"`)
-        * Some agents are still alive/active; in those cases the Timespan column must contain text such as "1967&ndash;"
+    * "Timespan", containing the *year* of each agent's `begin_date` and the *year* of each agent's `end_date`, separated by a hyphen
+        * Some agents are still alive/active; in those cases the Timespan column must contain text such as "1967-"
     * This list must be sorted in ascending alphabetical order of agent name, then part, and finally by nationality
 * A section with header "Classified As", containing a list of all classifiers for the object, with one per line
   * This list must be sorted in ascending alphabetical order of the classifier name
@@ -350,8 +352,7 @@ Here are the *requirements* for the source code of your solution.
 * Every invocation of the program must use exactly one `cursor` object
     * Note that this implies that it must also use exactly one database `connection` object!
 
-Here are some *recommendations* for the source code of your solution.
-They are examples of good style on which your program will be partially graded.
+In addition to the functional requirements for your source code, there are additional stylistic requirements on which your program will be partially graded.
 
 * Modularize your code extensively so that your "main" function looks something like this:
 ```python
@@ -364,7 +365,7 @@ def main():
 
 ## Input Specification
 
-You may assume the users of your `lux.py` and `luxdetails.py` programs are acting "in good faith". In particular, you may assume...
+You may assume the users of your `lux.py` and `luxdetails.py` programs are acting generally "in good faith". In particular, you may assume...
 
 * The user will only ever provide arguments at the command line that conform to the allowed arguments:
     * The only provided arguments will be `-h`, `-d date`, `-a agt`, `-c cls`, and `-l label` for `lux.py`
@@ -389,9 +390,8 @@ We will not test your program on such inputs, but we encourage you to design you
 Your `lux.py` could handle erroneous command-line arguments "gracefully". These commands illustrate:
 ```
 $ python lux.py c qr
-$ python lux.py -t
 $ python lux.py "-c " qr
-$ python lux.py -c qr st
+$ python lux.py -a qr st
 $ python lux.py -c
 $ python lux.py -d qr -l
 $ python lux.py -l -c paint
@@ -424,7 +424,8 @@ If the database is corrupted such that the SQLite driver's execution of a `SELEC
 > **Answer**: No. Generalizing...
 >
 > Database management systems can enforce *foreign key* integrity constraints on the databases that they manage.
-> So any DBMS would not allow its databases to contain the kind of violation that the student described. And so client programs would not need to check for such violations.
+> So any DBMS would not allow its databases to contain the kind of violation that the student described.
+> And so client programs would not need to check for such violations.
 >
 > That is a very good thing.
 > With a sufficiently rich database, it is very difficult for a client program systematically to check for foreign key integrity constraint violations.
@@ -437,7 +438,7 @@ If the database is corrupted such that the SQLite driver's execution of a `SELEC
 
 ## Testing
 
-We'll take a slightly more systematic approach to software testing techniques in lectures later in the semester.
+We'll take a (slightly) more systematic approach to software testing techniques in lectures later in the semester.
 In the meantime, to test your programs it will be sufficient to rely upon (1) your knowledge of testing from your previous experience, and (2) this [A Software Testing Taxonomy](docs/TestingTaxonomy.pdf) document, courtesy of Princeton University.
 
 Test your `lux.py` and `luxdetails.py` programs by (1) reviewing this assignment specification thoroughly, making sure that your programs conform to every aspect of it, and (2) comparing the behavior of your program with the example outputs that will be released in the coming days.
@@ -499,6 +500,11 @@ In unit testing, rather than testing the behavior of the project as a whole, eac
 By doing so, correctness can be assessed with much finer granularity than simply running the whole program.
 The beauty of unit testing is that if every individual function is correct, then the entire program is correct (because if you followed Python convention, the entire program is enclosed in an single function, `main()`)!
 
+The challenge of unit testing is: how do you know what a particular function should do, and how do you check that it's right?
+The answer is to write many small functions with well-defined semantics.
+This method of designing software has the consequence that if you intend to unit test, your functions should be designed such that you can check their execution for correct behavior.
+This is an additional level of design for software beyond the purely operational, so we encourage you to think about this and set aside some additional design time for your psets to enable unit tests.
+
 Unit testing will be covered briefly later in the semester; for now, it is sufficient to read a blog post or two and study briefly the documentation for the Python `unittest` module.
 
 ## Program Style
@@ -509,8 +515,9 @@ Generally, by consensus of the Python community, good Python style is defined by
 The Python community has developed a static code analysis tool named `pylint`, installable via `$ pip install pylint`.
 The pylint tool (configured with a `.pylintrc` file) generates a report critiquing the style of given Python code.
 The pylint tool enforces many of the PEP 8 guidelines, and some additional guidelines too.
-In CPSC 419 "good style" is defined by the pylint tool, as configured with the *default settings*.
-The lecture example programs and the scaffolding programs (with a few intentional or unavoidable exceptions) cause pylint to generate perfect reports, and your assignment programs should do the same (again, with a few intentional or unavoidable exceptions&mdash;generally a score $>9.00$ is fine and the report should be free of easy-to-fix issues such as "trailing whitespace").
+Although the lecture example programs and the scaffolding programs mostly cause pylint to generate perfect reports, they sometimes do not.
+Your assignment programs, however, must generate a good report (you may leave a few intentional or unavoidable exceptions&mdash;a score $>9.00$ is fine and the report should be free of easy-to-fix issues such as "trailing whitespace").
+Part of your grade on this assignment is the score from pylint when run in the default configuration with all of your submitted files&mdash;including the scaffolding file(s)!&mdash;rounded *up* to the nearest integer.
 
 Using pylint is easy.
 You can critique one file comprising your programs at a time:
@@ -595,7 +602,7 @@ Thanks.
 
 ### Late Submissions
 
-The deadline for this assignment is **11:59 PM NHT (New Haven Time) on Sep 29, 2023**.
+The deadline for this assignment is **11:59 PM NHT (New Haven Time) on Feb 9, 2023**.
 There is a strict 15 minute grace period beyond the deadline, to be used in case of technical or administrative difficulties, and not for putting final touches on your solution.
 (If you can do it in as little as 15 minutes, it probably is insignificant enough not to change your grade.)
 
@@ -608,9 +615,29 @@ Except for submissions after the 72-hour deadline (*which are not accepted*), th
 
 Your grade will be based upon:
 
-* Correctness, that is, how closely your programs conform to the specifications in this document.
-* Style, that is, the quality of your program style. This includes not only style as qualitatively assessed by the graders (including modularity, cleanliness, and algorithmic efficiency) but also style as reported by the pylint tool, using the default settings, and when executed via the command `python -m pylint **/*.py`.
-    * Ten percent of your grade will be based upon the quality of your program style as reported by pylint. Your grader will start with the 10-point score reported by pylint. Your pylint style grade is your pylint score rounded up to the next integer (minimum 0). For example, if your pylint score is 9.1, then your pylint style grade will be 10; if your pylint score is 7.7, then your pylint style grade will be 8.
+* Correctness, that is, how closely your programs conform to the specifications in this document, from 0-12 (0-6 for each of `lux.py` and `luxdetails.py`).
+* Style, that is, the quality of your program style. This includes not only style as manually assessed by the graders (including modularity, cleanliness, and pythonicity) but also style as reported by the pylint tool. Style is graded from 0-10 for pylint and 0-6 for manual style assessment
+* Performance. We do not enforce specific time bounds for queries. At this stage of the semester, we do not expect you to have optimized your queries&mdash;that will come later. You are however required to adhere to the [source code requirements](#source-code-guide) above, including always using prepared statements and using a single database cursor/connection. Performance is graded from 0-2 (0-1 for each of prepared statements and single cursor).
+
+Your score in each category will be an **integer**&mdash;that is, you will not receive, for example, 5.25/6 for the correctness of your program.
+The 0-6 grading scale for correctness and style has the following meaning:
+* 6: The submission is excellent and exceeds expectations
+* 5: The submission satisfies all or nearly all requirements
+* 4: The submission satisfies a majority, but not nearly all, of the requirements
+* 3: The submission satisfies about half of the assignments or slightly fewer
+* 2-1: The submission satisfies hardly any of the requirements
+* 0: The submission is unacceptable
+
+> **Note**: The scale puts "satisfies all requirements" at 5/6.
+> **You will not earn 100% on psets unless your work is exemplary.**
+> You do not need to earn 100% on psets to earn an A in this course.
+
+These three category scores will then be weighted as follows:
+* Correctness: 60%
+* Style: 20%
+  * 10% pylint
+  * 10% manual assessment
+* Performance: 10%
 
 If your code fails the tests on some particular functionality, your grader will inspect your code manually to try to assign partial credit for that functionality.
 Partial credit will be given only if there is an *obvious* "quick fix" (*e.g.*, you have accidentally changed the name of the database file and your solution points to a file with a name that does not match the grader's copy of the database); if no such quick fix exists then no partial credit for that feature will be given.
@@ -619,4 +646,4 @@ Partial credit will be given only if there is an *obvious* "quick fix" (*e.g.*, 
 
 Adapted from Assignment 1 for COS 333 &copy; 2021 by Robert M. Dondero, Jr., Princeton University
 
-This version &copy; 2023 by Alan Weide, Yale University
+This version &copy; 2024 by Alan Weide, Yale University
