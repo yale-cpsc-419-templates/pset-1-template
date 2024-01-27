@@ -68,7 +68,7 @@ To get started, you must follow the steps below to successfully set up you group
     * This step creates a GitHub repository for your team and links your team members' GitHub ids.
         * If you do not have a GitHub account, you are required to create one for this course
     * Use this git repository to track your assignment development.
-    * If you have never used Git before, or if you'd simply like some additional experience, complete the [Git/GitHub Primer](https://classroom.github.com/a/KnMlxgKP). There is no due date and it is not graded. 
+    * If you have never used Git or GitHub before, or if you'd simply like some additional experience, complete the [Git/GitHub Primer](https://classroom.github.com/a/KnMlxgKP). There is no due date and it is not graded. 
 
 3. Download the [`lux.sqlite`](https://yale.instructure.com/files/8452647/download?download_frd=1) database file from Canvas and place it in your new repository folder.
     > **Important**: Do not track `lux.sqlite` in your git repository.
