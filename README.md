@@ -1,11 +1,11 @@
 # CPSC 419: Command-line Application
 
-## Due Friday Feb 9 11:59 PM NHT (New Haven Time)
+## Due Friday Feb 7 11:59 PM NHT (New Haven Time)
 
 ## Table of Contents
 
 - [CPSC 419: Command-line Application](#cpsc-419-command-line-application)
-  - [Due Friday Feb 9 11:59 PM NHT (New Haven Time)](#due-friday-feb-9-1159-pm-nht-new-haven-time)
+  - [Due Friday Feb 7 11:59 PM NHT (New Haven Time)](#due-friday-feb-7-1159-pm-nht-new-haven-time)
   - [Table of Contents](#table-of-contents)
   - [Purpose](#purpose)
   - [Rules](#rules)
