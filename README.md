@@ -55,7 +55,7 @@ See below in the [Submission](#submission) section for details on what and how t
 To get started, you must follow the steps below to successfully set up you group and download the template files.
 
 1. Register your biweekly pset group on Canvas.
-    * You can do this by going to People -> Groups and joining a group named "Biweekly Assignment Group #" ([guide](https://guides.instructure.com/m/4212/l/64913-how-do-i-join-a-group-as-a-student)).
+    * You can do this by going to People -> Groups and joining a group named "Pset Partnership #" ([guide](https://guides.instructure.com/m/4212/l/64913-how-do-i-join-a-group-as-a-student)).
         * Make sure that both you and your partner are in the same group!
         * **Even if you work alone, sign up to a group.**
     * This step links your group to the canvas assignment.
@@ -63,7 +63,7 @@ To get started, you must follow the steps below to successfully set up you group
 
 2. Accept the GitHub Classroom assignment (to get here, you must have already done this).
     * GitHub classroom will yet again ask you to create a team, whether you will be working in pairs or individually.
-        * **Name this team identically to your Canvas group**, *e.g.* "Biweekly Assignment Group 13".
+        * **Name this team identically to your Canvas group**, *e.g.* "Pset Partnership 13".
     * Let your other team member join your team.
     * This step creates a GitHub repository for your team and links your team members' GitHub ids.
         * If you do not have a GitHub account, you are required to create one for this course
@@ -267,7 +267,7 @@ The specifics of the formatting are up to you, but there are a few guidelines it
     > **Hint**: use the `shutil.get_terminal_size()` function to query the size of the terminal
 * The primary sort of the table must be in ascending order of object `label`s and the secondary sort must be in ascending alphabetical order of object `date`s
 * The program output should never exceed 1000 objects
-* The output of the program, when run with no arguments, must include the first 1000 objects in the database according to the sorting orders specified above
+* The output of the program, when run with no arguments, must be the first 1000 objects in the database according to the sorting orders specified above
 
 > **Note**: Precisely formatting textual output as a table is tedious and in this particular case requires some pretty intricate code.
 > Since the goal of this assignment is to teach you how to interact with a database and not how to write sneaky formatting code, we have provided for your use a module named `table.py` that you may use to format your table output.
@@ -292,7 +292,7 @@ Filters must be case-insensitive, that is, the argument `-l ibook` must match an
 
 Filters must include leading and trailing whitespace, that is, the argument `-l 'er '` must match "Flower Garden" but not "Western Motel".
 
-> **Note**: Separate words on the command line are interpreted as separate command-line arguments, *not* single multi-word arguments unless they are surrounded by quotes.
+> **Note**: In UNIX, separate words on the command line are interpreted as separate command-line arguments, *not* single multi-word arguments unless they are surrounded by quotes.
 The argument list `-a van gogh -c painting` is invalid and your program does not need to handle it.
 On the other hand, the argument list `-a 'van gogh' -c painting` *is* valid and your program must filter objects having agent names that contain "van gogh" and a classifier containing "painting".
 
@@ -320,12 +320,12 @@ options:
 The output of your `luxdetails.py` program must be divided into several sections, each separated from the previous one by a single blank line.
 The header for a section must be on its own line
 Those sections are:
+* A section with header "Label" containing the object's label
 * A section with header "Summary", containing a single-row table with the following column headers and content:
     * "Accession No.", containing the accession number of the object
     * "Date", containing the object's date
     * "Place", containing the object's place
     * "Department", containing the object's department
-* A section with header "Label" containing the object's label
 * A section with header "Produced By", containing a table with details of all agents that produced this object.
     The table must have the following column headers and content:
     * "Part", containing the part(s) of the production carried out by each agent
@@ -333,7 +333,7 @@ Those sections are:
     * "Nationalities", containing all nationalities of each agent, each on its own line
     * "Timespan", containing the *year* of each agent's `begin_date` and the *year* of each agent's `end_date`, separated by a hyphen
         * Some agents are still alive/active; in those cases the Timespan column must contain text such as "1967-"
-    * This list must be sorted in ascending alphabetical order of agent name, then part, and finally by nationality
+    * This list must be sorted in ascending alphabetical order of agent name then part
 * A section with header "Classified As", containing a list of all classifiers for the object, with one per line
   * This list must be sorted in ascending alphabetical order of the classifier name
 * A section with header "Information", containing a table of all `references` to the object, with two columns: "Type" and "Content" (with the obvious values)
@@ -404,7 +404,7 @@ Your `luxdetails.py` could handle erroneous command-line arguments "gracefully".
 $ python luxdetails.py
 $ python luxdetails.py 12488 10034
 $ python luxdetails.py abc123
-$ python luxdetails.py 57183947298
+$ python luxdetails.py 5718394.7298
 ```
 
 Your `lux.py` and `luxdetails.py` could handle "database cannot be opened" errors.
@@ -419,7 +419,7 @@ If the database is corrupted such that the SQLite driver's execution of a `SELEC
 > **Note**: Good question from a student during a recent semester:
 >
 > Suppose the user runs `luxdetails.py` for a particular `id`, the program queries the `productions` table to find the corresponding `agt_id`, and the program then queries the database to fetch the row in the `agents` table with that agent ID.
-> Furthermore, suppose the database is corrupted such that no row with that agent ID exists in the courses table.
+> Furthermore, suppose the database is corrupted such that no row with that agent ID exists in the agents table.
 > Should our `luxdetails.py` handle that particular database corruption error?
 >
 > **Answer**: No. Generalizing...
@@ -430,7 +430,7 @@ If the database is corrupted such that the SQLite driver's execution of a `SELEC
 >
 > That is a very good thing.
 > With a sufficiently rich database, it is very difficult for a client program systematically to check for foreign key integrity constraint violations.
-> And it would be absurdly redundant for every client program to check for such violations.
+> And it would be absurdly redundant for *every* client program to check for such violations.
 >
 > All of this is to say that it's more realistic to compose your `lux.py` and `luxdetails.py` such that they don't check for foreign key integrity constraint violations.
 > And so it's fine to compose your programs such that they check for only the kinds of database-related errors that are described in this specification: file-level errors and schema-level errors.
@@ -506,7 +506,7 @@ The answer is to write many small functions with well-defined semantics.
 This method of designing software has the consequence that if you intend to unit test, your functions should be designed such that you can check their execution for correct behavior.
 This is an additional level of design for software beyond the purely operational, so we encourage you to think about this and set aside some additional design time for your psets to enable unit tests.
 
-Unit testing will be covered briefly later in the semester; for now, it is sufficient to read a blog post or two and study briefly the documentation for the Python `unittest` module.
+Unit testing will be covered briefly later in the semester; for now, it is sufficient to read a blog post or two and study the documentation for the Python `unittest` module.
 
 ## Program Style
 
@@ -581,6 +581,7 @@ There must be at least the following files with the following (exact) names in t
 * `luxdetails.py`
 
 Ensure that any additional files needed by your program (such as other Python modules) are in the repository snapshot captured by the release.
+If&mdash;because you omitted some necessary files&mdash;the grader cannot run your program by downloading your release, you will be asked to resubmit for a substantial penalty.
 
 > **Note**: If you have installed external packages, you must also include a file named `requirements.txt` containing the dependencies of your project.
 > It can be created from your virtual environment by running the following command:
@@ -588,7 +589,7 @@ Ensure that any additional files needed by your program (such as other Python mo
 > $ pip freeze -r requirements.txt
 > ```
 > 
-> Failure to include a `requirements.txt` file if you use third-party packages will result in an automatic 5% penalty and a request that you submit an appropriate `requirements.txt` file to the graders.
+> Failure to include a `requirements.txt` file if you use third-party packages will result in an automatic 10% penalty and a request that you submit an appropriate `requirements.txt` file to the graders.
 <hr/>
 
 ## **_Submit your assignment solution to Canvas as a [link to that release](https://docs.github.com/en/repositories/releasing-projects-on-github/linking-to-releases)._**
@@ -603,11 +604,10 @@ Thanks.
 
 ### Late Submissions
 
-The deadline for this assignment is **11:59 PM NHT (New Haven Time) on Feb 7, 2025**.
-There is a strict 15 minute grace period beyond the deadline, to be used in case of technical or administrative difficulties, and not for putting final touches on your solution.
-(If you can do it in as little as 15 minutes, it probably is insignificant enough not to change your grade.)
+The deadline for this assignment is **10:59 PM NHT (New Haven Time) on September 26, 2025**.
+There is a strict 60-minute grace period beyond the deadline.
 
-Late submissions will receive a 5% deduction for every 12-hour period (or part thereof) after the deadline.
+Late submissions will receive a 5% deduction for every 12-hour period (or part thereof) after the deadline and grace period.
 After 48 hours, the Canvas assignment will close and submissions after that time will not receive any credit.
 
 Except for submissions after the 48-hour deadline (*which are not accepted*), the timestamp on the commit associated with the linked release will determine what late penalties, if any, are applied.
@@ -647,4 +647,4 @@ Partial credit will be given only if there is an *obvious* "quick fix" (*e.g.*, 
 
 Adapted from Assignment 1 for COS 333 &copy; 2021 by Robert M. Dondero, Jr., Princeton University
 
-This version &copy; 2024 by Alan Weide, Yale University
+This version &copy; 2025 by Alan Weide, Yale University
