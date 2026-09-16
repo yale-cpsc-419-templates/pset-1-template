@@ -1,11 +1,11 @@
 # CPSC 4190: Command-line Application
 
-## Due Friday Sep 26 10:59 PM NHT (New Haven Time)
+## Due Friday Oct 2 10:59 PM NHT (New Haven Time)
 
 ## Table of Contents
 
 - [CPSC 4190: Command-line Application](#cpsc-419-command-line-application)
-  - [Due Friday Sep 26 10:59 PM NHT (New Haven Time)](#due-friday-feb-7-1159-pm-nht-new-haven-time)
+  - [Due Friday Oct 2 10:59 PM NHT (New Haven Time)](#due-friday-Oct-2-1159-pm-nht-new-haven-time)
   - [Table of Contents](#table-of-contents)
   - [Purpose](#purpose)
   - [Rules](#rules)
@@ -14,8 +14,13 @@
   - [The Database](#the-database)
     - [Database Schema](#database-schema)
     - [English Description](#english-description)
-  - [The `lux.py` Program](#the-luxpy-program)
-  - [The `luxdetails.py` Program](#the-luxdetailspy-program)
+  - [The `reg.py` Program](#the-regpy-program)
+    - [Output Requirements](#output-requirements)
+    - [Filtering Requirements](#filtering-requirements)
+    - [Sample Output for `reg.py`](#sample-output-for-regpy)
+  - [The `regdetails.py` Program](#the-regdetailspy-program)
+    - [Detail Sections](#detail-sections)
+    - [Sample Output for `regdetails.py`](#sample-output-for-regdetailspy)
   - [Source Code Guide](#source-code-guide)
   - [Input Specification](#input-specification)
   - [Error Handling](#error-handling)
@@ -30,7 +35,6 @@
   - [**_Submit your assignment solution to Canvas as a link to that release._**](#submit-your-assignment-solution-to-canvas-as-a-link-to-that-release)
     - [Late Submissions](#late-submissions)
     - [Grading](#grading)
-
 
 ## Purpose
 
@@ -68,290 +72,448 @@ To get started, you must follow the steps below to successfully set up you group
     * This step creates a GitHub repository for your team and links your team members' GitHub ids.
         * If you do not have a GitHub account, you are required to create one for this course
     * Use this git repository to track your assignment development.
-    * If you have never used Git or GitHub before, or if you'd simply like some additional experience, complete the Git/GitHub Starter Assignment (linked from Canvas). There is no due date and it is not graded. 
+    * If you have never used Git or GitHub before, or if you'd simply like some additional experience, complete the Git/GitHub Starter Assignment (linked from Canvas). There is no due date and it is not graded.
 
-3. Download the `lux.sqlite` database file from Canvas (in the Files section) and place it in your new repository folder.
-    > **Important**: Do not track `lux.sqlite` in your git repository.
-    > It is too large to be hosted on GitHub and recovering from an error telling you that is challenging at best.
-    > The included `.gitignore` file in the template repository will help with this, so *do not change or remove* that file.
-    > You may keep the database file in the repository folder, but you must be careful not to *track* it.
-
-    * One possible alternative to keeping the databse file directly in your repository is to keep it in a different folder and store only a [link](https://man7.org/linux/man-pages/man1/ln.1.html) to the "real" database file. Doing so would eliminate the need to copy the very-large file for each of your assignments.
+3. The `reg.sqlite` database file is included in your GitHub repository, so no separate download or setup is required.
 
 ## Your Task
 
-Any museum must maintain data about objects and artwork they have in their collection.
-Those data typically are kept in a database.
-The museum's curator must provide an interface that allows visitors and other interested parties to query the database.
+Any university registrar's office must maintain data about courses and classes offered during the upcoming semester. Those data typically are kept in a database. The registrar's office must provide an interface that allows students and other interested parties to query the database.
 
-Assume that you are working for the Yale University Art Gallery (YUAG).
-You are given a database containing data about objects and artwork stored in the gallery's collection.
-Your task is to compose Python programs that allow museum visitors and other interested parties to query the database.
+Assume that you are working for Yale's Registrar's Office. You are given a database containing data about courses and classes offered during this semester at Yale. Your task is to compose Python programs that allow Yale students and other interested parties to query the database.
 
-For this assignment your programs must have simple textual interfaces.
-The next assignments will ask you to enhance your programs in a few ways, perhaps most notably such that they have graphical user interfaces.
+For this assignment your programs must have simple *textual* interfaces.
+The next assignments will ask you to enhance your programs in a few ways, perhaps most notably such that they have *graphical* user interfaces.
 So it will be to your advantage to modularize your code so you easily can replace the textual interfaces with a graphical one.
 
 ## The Database
 
-The database is a SQLite database that is stored in a file named `lux.sqlite`.
+The database is a SQLite database that is stored in a file named `reg.sqlite`.
 
 ### Database Schema
 
-That file is provided as an attachment to this assignment, and its schema is in the image below (also available as an attachment to this assignment in the file `images/lux_database.png`).
-
-![Schema of Lux Database](images/lux_database.png)
-
 The database consists of these tables and fields:
 
-* `objects`
-    * `id` (primary key)
-    * `label`
-    * `accession_no`
-    * `date`
-
-* `agents`
-    * `id` (primary key)
-    * `name`
-    * `begin_date`
-    * `begin_date_is_bce`
-    * `end_date`
-    * `end_date_is_bce`
-    * `begin_place_id` (foreign key, references `places.id`)
-    * `end_place_id` (foreign key, references `places.id`)
-
-* `departments`
-    * `id` (primary key)
-    * `name`
-
-* `classifiers`
-    * `id` (primary key)
-    * `name`
-
-* `places`
-    * `id` (primary key)
-    * `label`
-    * `part_of`
-    * `longitude`
-    * `latitude`
-    * `url`
-
-* `references`
-    * `id` (primary_key)
-    * `obj_id` (foreign key, references `objects.id`)
-    * `type`
-    * `content`
-
-* `nationalities`
-    * `id` (primary key)
-    * `descriptor`
-
-* `productions`
-    * `obj_id` (foreign key, references `objects.id`)
-    * `agt_id` (foreign key, references `agents.id`)
-    * `part`
-
-* `objects_classifiers`
-    * `obj_id` (foreign key, references `objects.id`)
-    * `cls_id` (foreign key, references `classifiers.id`)
-
-* `objects_departments`
-    * `obj_id` (foreign key, references `objects.id`)
-    * `dep_id` (foreign key, references `departments.id`)
-
-* `objects_places`
-    * `obj_id` (foreign key, references `objects.id`)
-    * `pl_id` (foreign key, references `places.id`)
-
-* `agents_nationalities`
-    * `agt_id` (foreign key, references `agents.id`)
-    * `nat_id` (foreign key, references `nationalities.id`)
+| Table | Fields |
+| --- | --- |
+| `courses` | `courseid`, `subjectcode`, `coursenum`, `deptcode`, `title`, `descrip`, `prereqs` |
+| `departments` | `deptcode`, `deptname` |
+| `sections` | `crn`, `courseid`, `sectionid`, `sectionnumber` |
+| `meetings` | `crn`, `timestring`, `locstring` |
+| `crosslistings` | `primarycourseid`, `secondarycourseid` |
+| `profs` | `profid`, `profname` |
+| `coursesprofs` | `courseid`, `profid` |
 
 ### English Description
 
-In plain English, the database is organized as follows.
+These are the relationships among the tables:
 
-Every object (painting, sculpture, drawing, book, *etc.*) in the YUAG collection has a corresponding row in the `objects` table.
-An object has a label (*i.e.*, its title), an accession number (a code describing when it was acquired) and the date on which it was created.
+**`courses` and `departments`.**
 
-An object was created by zero or more agents, each of which has a corresponding row in the `agents` table.
-Objects and their creating agents are linked by the `productions` table, which describes what part of an object was created by the agent.
-(For example, the YUAG collection contains an Apple iBook G3, which has a *manufacturer* called "Apple Computer, Inc." and a *designer* called "Jonathon Ive".)
+For each row of the `courses` table with `deptcode` x, there is exactly 1 row of the `departments` table with `deptcode` x.
 
-An object is classified in several ways, each of which corresponds to a row in the `objects_classifiers` table.
-Classifiers include "painting", "sculpture", "portrait", *etc.*, and every classifiers for any object has a corresponding row in the `classifiers` table.
+For each row of the `departments` table with `deptcode` x, there are 0 or more rows of the `courses` table with `deptcode` x. (Some departments offer no courses. Some departments offer many courses.)
 
-An object is "referred to" in several ways.
-Each of the ways an object is referred to has a corresponding row in the `references` table.
-References include how the gallery acquired the object, a long description of the object, or, in some cases, the URL of an image of the object.
+**`courses` and `sections`.**
 
-An object belongs to one or more `departments`, and each department (obviously) holds many objects.
-YUAG departments and their held objects are linked by the `objects_departments` table.
+For each row of the `courses` table with `courseid` x, there are 0 or more rows of the `sections` table with `courseid` x. (Some courses don't have a corresponding section; that is, a particular course might not be offered this semester. Some courses have 1 corresponding section. Some courses have more than 1 corresponding section.)
 
-An object is associated with potentially several `places`.
-Each place an object is associated with has a corresponding row in the `objects_places` table.
+For each row of the `sections` table with `courseid` x, there is exactly 1 row of the `courses` table with `courseid` x. (Each section has exactly one corresponding course.)
 
-Each agent in the `agents` table is associated, via the `productions` table, with zero or more objects.
-Some agents are individuals; others are companies, collectives, or other organizations.
-An agent's `type` is one of "person" or "group".
-An agent has a `name`, which is either the person's name or the operating name of the group.
-The two dates in the agents table, `begin_date` and `end_date` have slightly different meanings depending on the type of agent they describe.
-If the agent is a person, the dates are that person's birth date and death date, respectively.
-If the agent is a group, the dates are that groups founding date and dissolution date, respectively.
-The columns `begin_date_is_bce` and `end_date_is_bce` are boolean flags to indicate that the date refers to a time before year one.
-Be careful performing calculations on dates having the associated BCE flag set.
-A similar approach is taken for the `begin_place_id` and `end_place_id` columns: they describe either the places in which a person was born and died or the places in which a group was formed and dissolved.
+**`sections` and `meetings`.**
 
-An agent has zero or more `nationalities`, which can be accessed via the `agents_nationalities` table.
-A nationality has a `descriptor` which is the English word one would use to describe a person of a nationality, such as "American" or "Ugandan".
+For each row of the `sections` table with `crn` x, there are 0 or more rows of the `meetings` table with `crn` x. (Some sections are not yet scheduled. Some meet once per week (or on a regular schedule). Some meet several times per week on an irregular schedule.)
 
-Each `place` in the world (at least, those places associated with an object or agent in the YUAG collection) has a corresponding row in the `places` table.
-A place's `label` is the English name used to refer to that place
-A place is typically a town, city, state, or country, but the kind of a place is not identified directly in the database.
-Instead, the `places` table contains a column `part_of` that refers to a *different* place's `id` (an invariant on the table is that there should be no cycles&mdash;but this is not enforced by the DBMS!).
-The `longitude` and `latitude` columns are the coordinates on Earth of the identified place.
-Column `url` refers to a file (a JSON file) containing additional information about the place.
+For each row of the `meetings` table with `crn` x, there is exactly 1 row of the `sections` table with `crn` x. (Each meeting is associated with exactly one section.)
 
-**Your first step must be to familiarize yourself with the database.**
-There are hundreds of thousands of rows in the database.
-It might benefit you to vist the gallery in person to get a sense of the scale, depth, and kinds of things you'll find in the database, and to give yourself ideas for test inputs.
-The SQL/Lux Bootcamp assignment will also serve to lay a foundation for your understanding of the database.
+**`courses` and `crosslistings`.**
 
-## The `lux.py` Program
+For each row of the `courses` table with `courseid` x, there are 1 or more rows of the `crosslistings` table with `primarycourseid` x. (Some courses are listed once. Some courses are crosslisted in several subjects (or schools!).)
 
-You must compose two programs, the first of which must be named `lux.py`.
-This program will display in the console a table of objects filtered by department, agent, classification, and title.
+For each row of the `crosslistings` table with `primarycourseid` x and `secondarycourseid` y, there is exactly one row of the `courses` table with `courseid` x and exactly one row of the `courses` table with `courseid` y.
 
-Here are the requirements for the behavior of your `lux.py` program.
+**`courses` and `coursesprofs`.**
 
-When executed via a command such as `python lux.py -h`, your program must display the following help message:
+For each row of the `courses` table with `courseid` x, there are 0 or more rows of the `coursesprofs` table with `courseid` x. (Some courses don't have an assigned professor. Some courses have 1 professor. Some courses have more than one professor.)
 
-```
-usage: lux.py [-h] [-d date] [-a agt] [-c cls] [-l label]
+For each row of the `coursesprofs` table with `courseid` x, there is exactly one row of the `courses` table with `courseid` x.
 
-                options:
-                -h, --help show this help message and exit
-                -d date show only those objects whose date contains date
-                -a agt show only those objects produced by an agent with name containing agt
-                -c cls show only those objects classified with a classifier having a name containing cls
-                -l label show only those objects whose label contains label
+**`coursesprofs` and `profs`.**
+
+For each row of the `coursesprofs` table with `profid` x, there is exactly 1 row of the `profs` table with `profid` x. (Each professor has exactly one name.)
+
+For each row of the `profs` table with `profid` x, there are 0 or more rows in the `coursesprofs` table with `profid` x. (Some professors are teaching 0 courses. Some are teaching 1 course. Some are teaching more than one course.)
+
+Your first step must be to familiarize yourself with the database.
+
+> **Note:** Yale organizes courses by both department and subject. These two properties have a many-to-many relationship, that is, each subject belongs to potentially many departments and each department oversees potentially many subjects.
+
+## The `reg.py` Program
+
+You must compose two programs, the first of which must be named `reg.py`.
+This program will display in the console a table of courses filtered by department code, subject code, course number, and title.
+
+When executed via a command such as `python reg.py -h`, your program must display the following help message:
+
+```text
+usage: reg.py [-h] [-d deptcode] [-s subjectcode] [-n num] [-t title]
+
+options:
+  -h, --help      show this help message and exit
+  -d deptcode     show only those classes whose department code contains dept
+  -s subjectcode  show only those classes whose subjectcode contains subject
+  -n num         show only those classes whose course number contains num
+  -t title       show only those classes whose course title contains title
 ```
 
-> **Hint**: Design your `lux.py` such that it uses the standard Python `argparse` module with the `allow_abbrev=False` option.
+> **Hint**: Use the standard Python `argparse` module with the `allow_abbrev=False` option.
 > The required help message is the default behavior of that module.
-> The help message may differ slightly based on your platform or version; do not worry about that&mdash;we are looking for the default behavior of `argparse`.
+> The help message may differ slightly based on your platform or Python version; we are looking for the default behavior of `argparse`.
 
-The output of your program must be contain the following information about each object satisfying the search criteria:
+### Output Requirements
 
-1. The object's `id`
-2. The object's `label`
-4. The object's `date`
-3. A list containing the `name` of each agent associated with the object, and the `part` each agent produced in the format `"{name} ({part})"`, sorted in ascending alphabetical order of the agent's name then in ascending order of the part
-    * The agent/part pairs must appear in a comma-separated list
-5. A list containing the `name` of each classifier for the object, sorted in ascending alphabetical order
-    * Each classifier must be on its own line
+The output of your program must be a tabular display of course information containing the following columns:
 
-The first line of output must indicate the number of objects shown, such as `"Search produced {count} objects."`.
-Below that, the output must have the appearance of a table, similar to the view produced by the `sqlite3` command-line tool when a query is executed.
-The specifics of the formatting are up to you, but there are a few guidelines it must follow.
+* `deptname`
+* `subjectcode`
+* `coursenum`
+* `title`
+* `crns`
+
+The `deptname` column contains the department name from the `departments` table.
+
+The `subjectcode`, `coursenum`, and `title` columns each map directly to a field in the database `courses` table; their value matches exactly the corresponding value in the database, wrapped to the width of the column.
+
+The `crns` column contains a list of the crn of each section associated with the course.
+There is one crn per line.
+
+The courses displayed in the table must be sorted first by `deptcode` in ascending order, then by `subjectcode` in ascending order, then by `coursenum` in ascending order, and finally by `title` in ascending order.
+The list of `crns` must be sorted in increasing order.
+
+The output must have the appearance of a table, similar to the view produced by the `sqlite3` command-line tool when a query is executed.
 
 * Each column must have a header row, with the following headers:
-    1. "ID"
-    2. "Label"
-    4. "Date"
-    3. "Produced By"
-    5. "Classified As"
+    1. "deptname"
+    2. "subjectcode"
+    3. "coursenum"
+    4. "title"
+    5. "crns"
 * The header row must be visually separated by at least one line from the rest of the table
 * Columns of the table must be visually separated by at least 1 character
 * No line of output may be more than 100 characters long, or the width of the terminal (whichever is smaller)
     > **Hint**: use the `shutil.get_terminal_size()` function to query the size of the terminal
-* The primary sort of the table must be in ascending order of object `label`s and the secondary sort must be in ascending alphabetical order of object `date`s
-* The program output should never exceed 1000 objects
-* The output of the program, when run with no arguments, must be the first 1000 objects in the database according to the sorting orders specified above
+* The program output should never exceed 1000 courses
+* The output of the program, when run with no arguments, must be the first 1000 courses in the database according to the sorting orders specified above.
 
 > **Note**: Precisely formatting textual output as a table is tedious and in this particular case requires some pretty intricate code.
 > Since the goal of this assignment is to teach you how to interact with a database and not how to write sneaky formatting code, we have provided for your use a module named `table.py` that you may use to format your table output.
 > You do not have to do so, and you may find it easier to "roll your own" or to leverage a third-party package from the Python community.
 > (As a reminder, if you use a package that is not part of the Python Standard Library, you must cite it.)
-<hr />
 
-> **Note**: Each *row* of the displayed table might span multiple *lines* of output if, for example, the object's label is very long or if there are many agents associated with the object.
+---
+
+> **Note**: Each *row* of the displayed table might span multiple *lines* of output if, for example, the course's title is very long or if there are many sections associated with the course.
 > The provided `table.py` uses the `textwrap` module from the Python standard library to handle this, and it is recommended that you also do so if you choose not to use `table.py`.
 > If there is a row of the table that spans multiple lines of output, every line break in that row must occur at a word boundary, and never in the middle of a word, unless the width is so restricted as to render this impossible.
 
-The program must accept any combination of the `-d`, `-a`, `-c`, and `-l` arguments (each appearing at most one time).
-Their meaning is as follows:
-* `-d date` filters objects to those with date field containing `date`
-* `-a agt` filters objects to those produced by an agent with name containing `agt`
-* `-c cls` filters objects to those classified by a name containing `cls`
-* `-l label` filters objects to those whose label contains `label`
+### Filtering Requirements
 
-If there are multiple arguments supplied, `lux.py` must combine the filters using `AND`; that is, for example, if the `-a` and `-l` arguments are both supplied, the output should display objects that match both filter criteria.
+The program must accept any combination of the `-d`, `-s`, `-n`, and `-t` arguments, each appearing at most once.
 
-Filters must be case-insensitive, that is, the argument `-l ibook` must match an object with a label such as "iBook G3".
+| Argument | Meaning |
+| --- | --- |
+| `-d deptcode` | Include courses whose `deptcode` contains the supplied value. |
+| `-s subjectcode` | Include courses whose `subjectcode` contains the supplied value. |
+| `-n num` | Include courses whose `coursenum` contains the supplied value. |
+| `-t title` | Include courses whose `title` contains the supplied value. |
 
-Filters must include leading and trailing whitespace, that is, the argument `-l 'er '` must match "Flower Garden" but not "Western Motel".
+If multiple arguments are supplied, `reg.py` must combine the filters using `AND`.
+For example, when both `-s` and `-n` are supplied, the output must contain courses matching both criteria.
 
-> **Note**: In UNIX, separate words on the command line are interpreted as separate command-line arguments, *not* single multi-word arguments unless they are surrounded by quotes.
-The argument list `-a van gogh -c painting` is invalid and your program does not need to handle it.
-On the other hand, the argument list `-a 'van gogh' -c painting` *is* valid and your program must filter objects having agent names that contain "van gogh" and a classifier containing "painting".
+Filters must be case-insensitive: `-t web` must match a title such as "Full Stack Web Programming".
+Filters must preserve leading and trailing whitespace: `-t 'ing '` must match "Embodying Story" but not "Full Stack Web Programming".
 
-## The `luxdetails.py` Program
+> **Note**: Separate words on a UNIX command line are separate arguments unless surrounded by quotes.
+> The argument list `-t full stack` is invalid and your program does not need to handle it.
+> The argument list `-t 'full stack'` is valid and must match titles containing that phrase.
 
-Your second program must be named `luxdetails.py`.
-This program will take as input the `id` of an object and print details about it, including the object label, accession number, date, place, agents, departments, classifications, and references.
-If the `id` is not that of an object in the database, your program must display a meaningful message and exit.
+### Sample Output for `reg.py`
 
-Here are the requirements for the behavior of your `luxdetails.py` program.
-
-When executed via a command such as `python luxdetails.py -h`, your `luxdetails.py` must display the following help message:
+```text
+$ python reg.py -d cpsc -n 4
+deptname                subjectcode coursenum title                        crns
+----------------------- ----------- --------- ---------------------------- -----
+Computer Science (CPSC) CPAR        491       Senior Project in Computing  10873
+                                              and the Arts
+Computer Science (CPSC) CPSC        334       Creative Embedded Systems    10936
+Computer Science (CPSC) CPSC        413       Computer System Security     10915
+Computer Science (CPSC) CPSC        414       Computing Then and Now:  How 10885
+                                              Digital Technology Evolves
+Computer Science (CPSC) CPSC        415       Law, Security, and Logic     13915
+Computer Science (CPSC) CPSC        419       Full Stack Web Programming   13382
+Computer Science (CPSC) CPSC        422       Design and Implementation of 10902
+                                              Operating Systems
+Computer Science (CPSC) CPSC        424       Parallel Programming         10945
+                                              Techniques
+Computer Science (CPSC) CPSC        429       Principles of Computer       10910
+                                              System Design
+Computer Science (CPSC) CPSC        431       Computer Music: Algorithmic  10939
+                                              and Heuristic Composition
+Computer Science (CPSC) CPSC        435       Building an Internet Router  10906
+Computer Science (CPSC) CPSC        437       Introduction to Database     10904
+                                              Systems
+Computer Science (CPSC) CPSC        439       Software Engineering         10912
+Computer Science (CPSC) CPSC        446       Data and Information         10898
+                                              Visualization
+Computer Science (CPSC) CPSC        447       Introduction to Quantum      10882
+                                              Computing
+Computer Science (CPSC) CPSC        448       Silicon Compilation          12497
+Computer Science (CPSC) CPSC        455       Economics and Computation    10879
+Computer Science (CPSC) CPSC        459       Building Interactive         10908
+                                              Machines
+Computer Science (CPSC) CPSC        464       Algorithms and their         13207
+                                              Societal Implications
+Computer Science (CPSC) CPSC        465       Theory of Distributed        10876
+                                              Systems
+Computer Science (CPSC) CPSC        468       Computational Complexity     10922
+Computer Science (CPSC) CPSC        472       Intelligent Robotics         10900
+Computer Science (CPSC) CPSC        474       Computational Intelligence   10919
+                                              for Games
+Computer Science (CPSC) CPSC        475       Computational Vision and     10955
+                                              Biological Perception
+Computer Science (CPSC) CPSC        479       Advanced Topics in Computer  13970
+                                              Graphics
+Computer Science (CPSC) CPSC        483       Deep Learning on             15816
+                                              Graph-Structured Data
+Computer Science (CPSC) CPSC        490       Senior Project               10874
+Computer Science (CPSC) CPSC        524       Parallel Programming         10946
+                                              Techniques
+Computer Science (CPSC) CPSC        546       Data and Information         10899
+                                              Visualization
+Computer Science (CPSC) CPSC        547       Introduction to Quantum      10883
+                                              Computing
+Computer Science (CPSC) CPSC        564       Algorithms and their         13388
+                                              Societal Implications
+Computer Science (CPSC) CPSC        574       Computational Intelligence   10920
+                                              for Games
+Computer Science (CPSC) CPSC        644       Geometric and Topological    13093
+                                              Methods in Machine Learning
+Computer Science (CPSC) CSEC        491       Senior Project               10875
 ```
-usage: luxdetails.py [-h] id
+
+```text
+$ python reg.py -d chem -n 600
+deptname         subjectcode coursenum title            crns
+---------------- ----------- --------- ---------------- -----
+Chemistry (CHEM) CHEM        600       Research Seminar 12710
+                                                        12713
+                                                        12716
+                                                        12719
+                                                        12722
+                                                        12724
+                                                        12730
+                                                        12732
+                                                        12734
+                                                        12735
+                                                        12738
+                                                        12740
+                                                        12741
+                                                        12743
+                                                        12745
+                                                        12746
+                                                        12747
+                                                        12748
+                                                        12749
+                                                        12750
+                                                        12751
+                                                        12752
+                                                        12753
+                                                        12754
+                                                        12755
+                                                        12756
+                                                        12757
+                                                        12758
+                                                        12759
+                                                        12760
+                                                        12761
+                                                        12762
+                                                        12763
+                                                        12764
+                                                        12765
+                                                        12766
+                                                        12767
+                                                        12768
+                                                        12770
+                                                        12772
+                                                        12773
+                                                        12774
+                                                        12775
+                                                        12776
+                                                        12777
+                                                        12778
+                                                        12779
+                                                        12780
+                                                        12781
+                                                        12782
+```
+
+```text
+$ python reg.py -t 'rock formation'
+deptname                       subjectcode coursenum title                 crns
+------------------------------ ----------- --------- --------------------- -----
+Earth and Planetary Sciences   EPS         350       Rock Formation in     12074
+(EPS)                                                Mountain Belts
+Earth and Planetary Sciences   EPS         555       Rock Formation in     12076
+(EPS)                                                Mountain Belts
+```
+
+## The `regdetails.py` Program
+
+Your second program must be named `regdetails.py`.
+This program takes the `crn` of a section and prints details about its course, including the department, subject, course number, title, description, prerequisites, meeting information, crosslistings, and professors.
+If the `crn` does not identify a section in the database, your program must display a meaningful message and exit.
+
+When executed via a command such as `python regdetails.py -h`, your program must display the following help message:
+
+```text
+usage: regdetails.py [-h] crn
 
 positional arguments:
-  id         the id of the object whose details should be shown
+  crn         the crn of the class whose details should be shown
 
 options:
   -h, --help  show this help message and exit
 ```
 
-> **Hint**: Design your `luxdetails.py` such that it uses the standard Python `argparse` module.
+> **Hint**: Use the standard Python `argparse` module.
 
-The output of your `luxdetails.py` program must be divided into several sections, each separated from the previous one by a single blank line.
-The header for a section must be on its own line
+### Detail Sections
+
+The output of your `regdetails.py` program must be divided into several sections, each separated from the previous one by a single blank line.
+The header for a section must be on its own line.
 Those sections are:
-* A section with header "Label" containing the object's label
-* A section with header "Summary", containing a single-row table with the following column headers and content:
-    * "Accession No.", containing the accession number of the object
-    * "Date", containing the object's date
-    * "Place", containing the object's place
-    * "Department", containing the object's department
-* A section with header "Produced By", containing a table with details of all agents that produced this object.
-    The table must have the following column headers and content:
-    * "Part", containing the part(s) of the production carried out by each agent
-    * "Name", containing the name of each agent
-    * "Nationalities", containing all nationalities of each agent, each on its own line
-    * "Timespan", containing the *year* of each agent's `begin_date` and the *year* of each agent's `end_date`, separated by a hyphen
-        * Some agents are still alive/active; in those cases the Timespan column must contain text such as "1967-"
-    * This list must be sorted in ascending alphabetical order of agent name then part
-* A section with header "Classified As", containing a list of all classifiers for the object, with one per line
-  * This list must be sorted in ascending alphabetical order of the classifier name
-* A section with header "Information", containing a table of all `references` to the object, with two columns: "Type" and "Content" (with the obvious values)
 
-> **Note**: Some reference contents contain HTML-like content.
-> It must be displayed verbatim in your output.
-<hr />
+1. A table (with the same format as the table you built in `reg.py`) with the following columns: `deptcode`, `deptname`, `subjectcode`, and `coursenum`.
+   Each must hold the value of the field in the database associated with the course that has the `courseid` matching the `courseid` of the section with the provided `crn`.
 
-> **Note**: As with your output from `lux.py`, the width of the output of `luxdetails.py` must not exceed the smaller of 100 characters or the width of the terminal.
+2. A section labeled `title`, containing the course title from the `courses` table.
+
+3. A section labeled `descrip`, containing the course description from the `courses` table, or the string `None` if there is no description.
+
+4. A section labeled `prereqs`, containing the course prerequisites from the `courses` table, or the string `None` if there are no prerequisites.
+
+5. A table (with the same format as the table you built in `reg.py`) with three columns: `sectionnumber`, `crn`, and `meetinginfo`. The `sectionnumber` and `crn` columns should hold values verbatim from the database (from the fields with those names) for the `crn` provided.
+    There must be one entry in the `meetinginfo` column for each row in the `meetings` table for the section with the provided `crn`. The entries must each have the format `<timestring>@<locstring>` and be listed one per line.
+
+6. A table (with the same format as the table you built in `reg.py`) with two columns: `subjectcode` and `coursenum`.
+   The table must contain the `subjectcode` and `coursenum` of each course associated with the `courseid` of the provided `crn` in the `crosslistings` table.
+
+7. A section labeled `professors`, containing the professors for this course.
+   It contains zero or more lines consisting of the names of the professors of the course&mdash;one per line.
+
+> **Hint**: The `title`, `descrip`, `prereqs`, and `professors` sections can each be treated as a single-column table, if your table output functions support such things (a correct implementation of `table.py` does support it).
+
+> **Note**: The description and prerequisites strings for some courses in the database contain HTML-like tags.
+> They must be included verbatim in your output.
+
+> **Note**: As with your output from `reg.py`, the width of the output of `regdetails.py` must not exceed the smaller of 100 characters or the width of the terminal.
+
+### Sample Output for `regdetails.py`
+
+```text
+$ python regdetails.py 13382
+deptcode deptname                subjectcode coursenum
+-------- ----------------------- ----------- ---------
+CPSC     Computer Science (CPSC) CPSC        419      
+
+title                     
+--------------------------
+Full Stack Web Programming
+
+descrip                                                                         
+--------------------------------------------------------------------------------
+<p>This course introduces students to a variety of advanced software engineering
+and programming techniques in the context of full-stack web programming. The    
+focus of the course includes both client- and server-side programming (and      
+database programming), client/server communication, user interface programming, 
+and parallel programming. This course is designed for students who have taken   
+CPSC 223 (but do not need CPSC 323 or higher-level computer science systems     
+courses) and wish to learn the complete programming framework of Web            
+programming. For a systematic treatment of core software engineering techniques,
+using Web programming as a running example framework, consider taking CPSC 439, 
+which targets students with more extensive programming experiences (after CPSC  
+323).</p>                                                                       
+
+prereqs                                            
+---------------------------------------------------
+<p class="prerequisites">Prerequisite: CPSC 223</p>
+
+sectionnumber crn   meetinginfo          
+------------- ----- ---------------------
+1             13382 MW 1.00-2.15 @ ML 211
+
+subjectcode coursenum
+----------- ---------
+CPSC        419      
+CPSC        519      
+
+professors
+----------
+Alan Weide
+Jay Lim   
+```
+
+```text
+$ python regdetails.py 12076
+deptcode deptname                           subjectcode coursenum
+-------- ---------------------------------- ----------- ---------
+EPS      Earth and Planetary Sciences (EPS) EPS         555      
+
+title                           
+--------------------------------
+Rock Formation in Mountain Belts
+
+descrip                                                                         
+--------------------------------------------------------------------------------
+<p>Examination of the fundamental principles governing the formation of         
+metamorphic and igneous rocks during mountain building. Topics include processes
+of heat and mass transfer in orogenic belts, generation of igneous rocks in     
+continental and subduction settings, ultra-high-pressure and ultra-high-        
+temperature metamorphism, spatial and temporal patterns of petrologic processes 
+throughout geologic time, and pressure-temperature-time paths of metamorphic and
+igneous rocks.</p>                                                              
+
+prereqs
+-------
+None   
+
+sectionnumber crn   meetinginfo              
+------------- ----- -------------------------
+1             12076 TTh 11.35-12.50 @ KGL 119
+                    HTBA @ TBA               
+
+subjectcode coursenum
+----------- ---------
+EPS         350      
+EPS         555      
+
+professors
+----------
+Jay Ague  
+```
 
 ## Source Code Guide
 
 Here are the *requirements* for the source code of your solution.
-* The program must communicate with a SQLite database in a file named `lux.sqlite`, organized as described above.
-* The program must use SQL prepared statements for every database query.
-    (This protects the database against SQL injection attacks.)
+* The program must communicate with a SQLite database in a file named `reg.sqlite`, organized as described above.
+* The program must use SQL prepared statements for every database query. (This protects the database against SQL injection attacks.)
 * Every invocation of the program must use exactly one `cursor` object
     * Note that this implies that it must also use exactly one database `connection` object!
+* Every module used by your program must either be from the Python standard library or written by your team (and included in your submission). The only exception to this is the provided `table.py` file that is partially completed (you may use this file). Here are some recommended standard library modules to make your life easier:
+    * `sqlite3` for communicating with the database
+    * `argparse` for handling command-line arguments
+    * `textwrap` for formatting output
+    * `itertools` for simplifying some parts of your code
 
 In addition to the functional requirements for your source code, there are additional stylistic requirements on which your program will be partially graded.
 
@@ -359,58 +521,60 @@ In addition to the functional requirements for your source code, there are addit
 ```python
 def main():
     filters = get_filter_terms()
-    objects = get_filtered_objects(filters)
-    output_objects(objects)
+    courses = get_filtered_courses(filters)
+    output_courses(courses)
 ```
 * Encapsulate database code and print statements inside modules that can be replaced if you decide to display courses in a different fashion or retrieve the data from a different source.
 
+> **Hint**: Study the provided `table.py`, implement the unimplemented functions, and use that module in your solution.
+
 ## Input Specification
 
-You may assume the users of your `lux.py` and `luxdetails.py` programs are acting generally "in good faith". In particular, you may assume...
+You may assume the users of your `reg.py` and `regdetails.py` programs are acting generally "in good faith". In particular, you may assume...
 
 * The user will only ever provide arguments at the command line that conform to the allowed arguments:
-    * The only provided arguments will be `-h`, `-d date`, `-a agt`, `-c cls`, and `-l label` for `lux.py`
-    * The only provided argument will be a single positional argument or the `-h` flag for `luxdetails.py`
-* The database exists in a file named `lux.sqlite` and is well-formed according to the database specification above
+    * The only provided arguments will be `-h`, `-d deptcode`, `-s subjectcode`, `-n num`, and `-t title` for `reg.py`
+    * The only provided argument will be a single positional argument or the `-h` flag for `regdetails.py`
+* The database exists in a file named `reg.sqlite` and is well-formed according to the database specification above
 
 However, you may *not* assume...
 
-* That there are any objects at all in the database
-* That the single argument to `luxdetails.py` is a numeric argument
-* That the single argument to `luxdetails.py`, even if it is numeric, corresponds to an object in the database
+* That there are any courses at all in the database
+* That the single argument to `regdetails.py` is a numeric argument
+* That the single argument to `regdetails.py`, even if it is numeric, corresponds to a section in the database
 
 ## Error Handling
 
-Despite the assumptions you may make about input, your `lux.py` and `luxdetails.py` should be reasonably robust.
+Despite the assumptions you may make about input, your `reg.py` and `regdetails.py` should be reasonably robust.
 Since we haven't discussed error handling in this course, whatever previous experience you have handling errors will be sufficient for this assignment.
 Keep in mind that as we progress through the course, error handling will become more important (and the specification of program input more relaxed!).
 
 The following recommendations are provided only for your benefit of cases to consider as potentially program-breaking.
 We will not test your program on such inputs, but we encourage you to design your solution to handle them nonetheless.
 
-Your `lux.py` could handle erroneous command-line arguments "gracefully". These commands illustrate:
+Your `reg.py` could handle erroneous command-line arguments "gracefully". These commands illustrate:
 ```
-$ python lux.py c qr
-$ python lux.py "-c " qr
-$ python lux.py -a qr st
-$ python lux.py -c
-$ python lux.py -d qr -l
-$ python lux.py -l -c paint
-$ python lux.py -x
-```
-
-Your `luxdetails.py` could handle erroneous command-line arguments "gracefully". These commands illustrate:
-```
-$ python luxdetails.py
-$ python luxdetails.py 12488 10034
-$ python luxdetails.py abc123
-$ python luxdetails.py 5718394.7298
+$ python reg.py s qr
+$ python reg.py "-s " qr
+$ python reg.py -d qr st
+$ python reg.py -s
+$ python reg.py -n qr -t
+$ python reg.py -t -s cpsc
+$ python reg.py -x
 ```
 
-Your `lux.py` and `luxdetails.py` could handle "database cannot be opened" errors.
+Your `regdetails.py` could handle erroneous command-line arguments "gracefully". These commands illustrate:
+```
+$ python regdetails.py
+$ python regdetails.py 12488 10034
+$ python regdetails.py abc123
+$ python regdetails.py 5718394.7298
+```
+
+Your `reg.py` and `regdetails.py` could handle "database cannot be opened" errors.
 If the database cannot be opened, then your programs could write a descriptive error message&mdash;the one contained within the thrown Exception object&mdash;to its `stderr`.
 
-Your `lux.py` and `luxdetails.py` also could handle "corrupted database" errors.
+Your `reg.py` and `regdetails.py` also could handle "corrupted database" errors.
 In the context of this course, a corrupted database is one that causes the database driver, upon interaction with the database, to throw an exception.
 In the case of SQLite, a corrupted database might consist of an invalid SQLite file&mdash;for example, a file that's empty or contains simple text.
 More generally, a corrupted database might be a database that is missing a table that the interaction requires, or is missing a column/field that the interaction requires.
@@ -418,9 +582,9 @@ If the database is corrupted such that the SQLite driver's execution of a `SELEC
 
 > **Note**: Good question from a student during a recent semester:
 >
-> Suppose the user runs `luxdetails.py` for a particular `id`, the program queries the `productions` table to find the corresponding `agt_id`, and the program then queries the database to fetch the row in the `agents` table with that agent ID.
-> Furthermore, suppose the database is corrupted such that no row with that agent ID exists in the agents table.
-> Should our `luxdetails.py` handle that particular database corruption error?
+> Suppose the user runs `regdetails.py` for a particular `crn`, the program queries the `sections` table to find the corresponding `courseid`, and the program then queries the database to fetch the row in the `courses` table with that course ID.
+> Furthermore, suppose the database is corrupted such that no row with that course ID exists in the courses table.
+> Should our `regdetails.py` handle that particular database corruption error?
 >
 > **Answer**: No. Generalizing...
 >
@@ -432,36 +596,37 @@ If the database is corrupted such that the SQLite driver's execution of a `SELEC
 > With a sufficiently rich database, it is very difficult for a client program systematically to check for foreign key integrity constraint violations.
 > And it would be absurdly redundant for *every* client program to check for such violations.
 >
-> All of this is to say that it's more realistic to compose your `lux.py` and `luxdetails.py` such that they don't check for foreign key integrity constraint violations.
+> All of this is to say that it's more realistic to compose your `reg.py` and `regdetails.py` such that they don't check for foreign key integrity constraint violations.
 > And so it's fine to compose your programs such that they check for only the kinds of database-related errors that are described in this specification: file-level errors and schema-level errors.
-> The first easily could happen if the `lux.sqlite` file is missing from the working directory.
-> The second could happen if, for example, the `lux.sqlite` file is present but empty.
+> The first easily could happen if the `reg.sqlite` file is missing from the working directory.
+> The second could happen if, for example, the `reg.sqlite` file is present but empty.
 
 ## Testing
 
 We'll take a (slightly) more systematic approach to software testing techniques in lectures later in the semester.
 In the meantime, to test your programs it will be sufficient to rely upon (1) your knowledge of testing from your previous experience, and (2) this [A Software Testing Taxonomy](docs/TestingTaxonomy.pdf) document, courtesy of Princeton University.
 
-Test your `lux.py` and `luxdetails.py` programs by (1) reviewing this assignment specification thoroughly, making sure that your programs conform to every aspect of it, and (2) comparing the behavior of your program with the example outputs that will be released in the coming days.
+Test your `reg.py` and `regdetails.py` programs by (1) reviewing this assignment specification thoroughly, making sure that your programs conform to every aspect of it, and (2) comparing the behavior of your program with the example outputs given in this document.
 
 ### Boundary Testing
 
-Focus on boundary (alias corner case) testing.
-Of course, make sure that your programs handle normal data.
-But also make sure that your programs handle unusual data: objects that have no references, lots of references, agents with several nationalities, and so forth.
+Focus on *boundary* (alias *corner case*) testing. Of course, make sure that your programs handle normal data. But also make sure that your programs handle unusual data: courses that have multiple cross-referenced departments/numbers, long titles, long descriptions, multiple professors, no professors, and so forth.
 
 ### Statement Testing
 
 Next, focus on statement (alias coverage) testing.
-Your tests should cause every statement of your `lux.py` and `luxdetails.py` to be executed.
+Your tests should cause every statement of your `reg.py` and `regdetails.py` to be executed.
 
 You're encouraged, but not required, to use the Python `coverage` tool to generate a coverage report showing which lines of your programs have and have not been executed by your tests. These are the steps:
-1. Repeatedly issue commands of the form p`ython -m coverage run -p lux.py arguments`.
-    Each of those commands runs your `lux.py` with the specified arguments, and generates a coverage report in a file named `.coverageX` (for some `X`).
-    The report indicates which lines of your `lux.py` were executed and which were not.
-1. Repeatedly issue commands of the form `python -m coverage run -p luxdetails.py argument`.
-    Each of those commands runs your `luxdetails.py` with the specified argument, and generates a coverage report in a file named `.coverageX` (for some `X`).
-    The report indicates which lines of your `luxdetails.py` were executed and which were not.
+
+1. Repeatedly issue commands of the form `python -m coverage run -p reg.py arguments`.
+    Each of those commands runs your `reg.py` with the specified arguments, and generates a coverage report in a file named `.coverageX` (for some `X`).
+    The report indicates which lines of your `reg.py` were executed and which were not.
+
+1. Repeatedly issue commands of the form `python -m coverage run -p regdetails.py argument`.
+    Each of those commands runs your `regdetails.py` with the specified argument, and generates a coverage report in a file named `.coverageX` (for some `X`).
+    The report indicates which lines of your `regdetails.py` were executed and which were not.
+
 1. Issue the command `python -m coverage combine` to combine the coverage reports generated by steps 1 and 2 into one large coverage report in a file named `.coverage`.
 1. Issue the command `python -m coverage html` to use the .coverage file to generate a human-readable report as a set of HTML documents in a directory named `htmlcov`.
 1. Browse to `htmlcov/index.html` to check the report.
@@ -474,22 +639,22 @@ You are encouraged, but not required, to automate your testing.
 Automating your testing could reduce the amount of typing that you must do, and also could increase the quality of your programs.
 It's also likely to save you time in future assignments to have some automated test scaffolding built early on.
 
-To automate your testing of `lux.py` you might compose a program named, say, `testlux.py`.
+To automate your testing of `reg.py` you might compose a program named, say, `testreg.py`.
 
-At the core of the `testlux.py` program might be function calls of the form `os.system('somecommand')`.
+At the core of the `testreg.py` program might be function calls of the form `os.system('somecommand')`.
 Each such function call would execute `somecommand`, just as if `somecommand` were entered as a command at a shell prompt.
-For example, the function call `os.system('python lux.py -l western')` would execute the command `python lux.py -l western`.
+For example, the function call `os.system('python reg.py -t web')` would execute the command `python reg.py -t web`.
 
-You might design your `testlux.py` program to execute `lux.py` multiple times with various command-line arguments.
+You might design your `testreg.py` program to execute `reg.py` multiple times with various command-line arguments.
 You then might:
 
-Run `testlux.py` using your `lux.py` and capture the output in a file (`python testlux.py > out1 2>&1`).
+Run `testreg.py` using your `reg.py` and capture the output in a file (`python testreg.py > out1 2>&1`).
 Manually inspect the database to determine what the correct output *should* be, and type that in a file called, *e.g.*, `outc`.
-Compare the two output files via a `diff` command (`diff -y out1 out2`).
+Compare the two output files via a `diff` command (`diff -y out1 outc`).
 The contents of the two output files should be the same, except for the name of the program within error messages.
-You might automate your testing of `luxdetails.py` in a similar way.
+You might automate your testing of `regdetails.py` in a similar way.
 
-Incidentally, if you're clever you could use your `testlux.py` and `testluxdetails.py` programs to generate your coverage report.
+Incidentally, if you're clever you could use your `testreg.py` and `testregdetails.py` programs to generate your coverage report.
 
 ### Unit Testing
 
@@ -517,20 +682,21 @@ The Python community has developed a static code analysis tool named `pylint`, i
 The pylint tool (configured with a `.pylintrc` file) generates a report critiquing the style of given Python code.
 The pylint tool enforces many of the PEP 8 guidelines, and some additional guidelines too.
 Although the lecture example programs and the scaffolding programs mostly cause pylint to generate perfect reports, they sometimes do not.
-Your assignment programs, however, must generate a good report (you may leave a few intentional or unavoidable exceptions&mdash;a score $>9.00$ is fine and the report should be free of easy-to-fix issues such as "trailing whitespace").
+Your assignment programs, however, must generate a good report (you may leave a few intentional or unavoidable exceptions&mdash;a score above 9.00 is fine and the report should be free of easy-to-fix issues such as "trailing whitespace").
 Part of your grade on this assignment is the score from pylint when run in the default configuration with all of your submitted files&mdash;including the scaffolding file(s)!&mdash;rounded *up* to the nearest integer.
 
 Using pylint is easy.
 You can critique one file comprising your programs at a time:
+
 ```
-python -m pylint lux.py
-python -m pylint luxdetails.py
+python -m pylint reg.py
+python -m pylint regdetails.py
 ...
 ```
 
 However, a better approach is to critique all files comprising your programs at the same time:
-```
-python -m pylint lux.py luxdetails.py ...
+```shell
+python -m pylint reg.py regdetails.py ...
 ```
 When given multiple files, pylint performs some cross-file critiquing.
 So the "all files at the same time" approach may generate warnings in addition to those generated by the "one file at a time" approach.
@@ -538,20 +704,20 @@ Make sure you use the "all files at the same time" approach, as your grader will
 
 ## Advice
 
-The command-line format of `lux.py` is incomplete in the logical sense.
+The command-line format of `reg.py` is incomplete in the logical sense.
 Most notably the format doesn't allow the user to express `OR` relationships in queries.
-For example, the format doesn't allow the user to express queries of the form "Display data for all objects whose classification is 'sculpture' OR 'painting'" or "Display all objects that were produced by 'van Gogh' OR 'hals'."
+For example, the format doesn't allow the user to express queries of the form "Display data for all classes whose subject is 'chem' OR 'biol'." or "Display data for all classes whose dept is 'cpsc' OR whose subject is 'eeng'."
 Don't be concerned about that.
-Remember that the purpose of the assignment is not to develop a great art collection search application *per se*.
+Remember that the purpose of the assignment is not to develop a great registrar's office application *per se*.
 Instead its purpose is to give you experience with database programming&mdash;experience that, we hope, will help you when developing your project, and beyond.
 
 Modularize your code as much as you can.
 In particular, isolate the user-interface-related code and the database-related code in distinct modules.
 Good modularity will help you to reuse your code from this assignment in the next assignment.
 
-Make sure that the output of your `lux.py` conforms to the specified format.
+Make sure that the output of your `reg.py` conforms to the specified format.
 If it doesn't, then your program will create more work for our graders, putting them in a bad mood.
-The same goes for your `luxdetails.py`.
+The same goes for your `regdetails.py`.
 
 ## Submission
 
@@ -577,8 +743,8 @@ Package your assignment files by [creating a release](https://docs.github.com/en
 There must be at least the following files with the following (exact) names in that repository when you submit it:
 
 * `README.md`
-* `lux.py`
-* `luxdetails.py`
+* `reg.py`
+* `regdetails.py`
 
 Ensure that any additional files needed by your program (such as other Python modules) are in the repository snapshot captured by the release.
 If&mdash;because you omitted some necessary files&mdash;the grader cannot run your program by downloading your release, you will be asked to resubmit for a substantial penalty.
@@ -586,13 +752,14 @@ If&mdash;because you omitted some necessary files&mdash;the grader cannot run yo
 > **Note**: If you have installed external packages, you must also include a file named `requirements.txt` containing the dependencies of your project.
 > It can be created from your virtual environment by running the following command:
 > ```
-> $ pip freeze -r requirements.txt
+> $ pip freeze > requirements.txt
 > ```
 > 
 > Failure to include a `requirements.txt` file if you use third-party packages will result in an automatic 10% penalty and a request that you submit an appropriate `requirements.txt` file to the graders.
-<hr/>
 
-## **_Submit your assignment solution to Canvas as a [link to that release](https://docs.github.com/en/repositories/releasing-projects-on-github/linking-to-releases)._**
+---
+
+**_Submit your assignment solution to Canvas as a [link to that release](https://docs.github.com/en/repositories/releasing-projects-on-github/linking-to-releases)._**
 
 As noted above in the [Rules](#rules) section, it must be the case that either you submit all of your team's files or your teammate submits all of your team's files.
 (It must not be the case that you submit some of your team's files and your teammate submits some of your team's files.)
@@ -602,7 +769,7 @@ Please follow the rules on what to submit and how.
 It will be a big help to us if you get the filenames right and submit exactly what's asked for.
 Thanks.
 
-### Late Submissions
+## Late Submissions
 
 The deadline for this assignment is **10:59 PM NHT (New Haven Time) on September 26, 2025**.
 There is a strict 60-minute grace period beyond the deadline.
@@ -612,11 +779,11 @@ After 48 hours, the Canvas assignment will close and submissions after that time
 
 Except for submissions after the 48-hour deadline (*which are not accepted*), the timestamp on the commit associated with the linked release will determine what late penalties, if any, are applied.
 
-### Grading
+## Grading
 
 Your grade will be based upon:
 
-* Correctness, that is, how closely your programs conform to the specifications in this document, from 0-12 (0-6 for each of `lux.py` and `luxdetails.py`).
+* Correctness, that is, how closely your programs conform to the specifications in this document, from 0-12 (0-6 for each of `reg.py` and `regdetails.py`).
 * Style, that is, the quality of your program style. This includes not only style as manually assessed by the graders (including modularity, cleanliness, and pythonicity) but also style as reported by the pylint tool. Style is graded from 0-10 for pylint and 0-6 for manual style assessment
 * Performance. We do not enforce specific time bounds for queries. At this stage of the semester, we do not expect you to have optimized your queries&mdash;that will come later. You are however required to adhere to the [source code requirements](#source-code-guide) above, including always using prepared statements and using a single database cursor/connection. Performance is graded from 0-2 (0-1 for each of prepared statements and single cursor).
 
@@ -643,8 +810,8 @@ These three category scores will then be weighted as follows:
 If your code fails the tests on some particular functionality, your grader will inspect your code manually to try to assign partial credit for that functionality.
 Partial credit will be given only if there is an *obvious* "quick fix" (*e.g.*, you have accidentally changed the name of the database file and your solution points to a file with a name that does not match the grader's copy of the database); if no such quick fix exists then no partial credit for that feature will be given.
 
-<hr/>
+---
 
 Adapted from Assignment 1 for COS 333 &copy; 2021 by Robert M. Dondero, Jr., Princeton University
 
-This version &copy; 2025 by Alan Weide, Yale University
+This version &copy; 2026 by Alan Weide, Yale University
