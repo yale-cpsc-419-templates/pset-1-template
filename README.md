@@ -789,7 +789,7 @@ Your new `README` file must contain:
 * (Optionally) Any information that will help us to grade your work in the most favorable light
     * In particular, describe all known bugs and explain why any pylint style warnings you received are unavoidable or why you know better than pylint (a convincing argument may negate some pylint style penalties you accrue)
 
-Your README file must be a plain text file: don't create it using Microsoft Word or any other word processor, although you are encouraged to format it using [markdown](https://www.markdownguide.org/) tags.
+Your README file must be a plain text file: don't create it using Microsoft Word or any other word processor, although you are encouraged to format it using [markdown](https://www.markdownguide.org/).
 
 Package your assignment files by [creating a release](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release) on GitHub in your assignment repository.
 There must be at least the following files with the following (exact) names in that repository when you submit it:
@@ -823,7 +823,7 @@ Thanks.
 
 ## Late Submissions
 
-The deadline for this assignment is **10:59 PM NHT (New Haven Time) on September 26, 2025**.
+The deadline for this assignment is **10:59 PM NHT (New Haven Time) on Oct 2, 2025**.
 There is a strict 60-minute grace period beyond the deadline.
 
 Late submissions will receive a 5% deduction for every 12-hour period (or part thereof) after the deadline and grace period.
