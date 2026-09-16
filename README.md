@@ -241,130 +241,113 @@ Filters must preserve leading and trailing whitespace: `-t 'ing '` must match "E
 
 ```text
 $ python reg.py -d cpsc -n 4
-deptname                subjectcode coursenum title                        crns
------------------------ ----------- --------- ---------------------------- -----
-Computer Science (CPSC) CPAR        491       Senior Project in Computing  10873
-                                              and the Arts
-Computer Science (CPSC) CPSC        334       Creative Embedded Systems    10936
-Computer Science (CPSC) CPSC        413       Computer System Security     10915
-Computer Science (CPSC) CPSC        414       Computing Then and Now:  How 10885
-                                              Digital Technology Evolves
-Computer Science (CPSC) CPSC        415       Law, Security, and Logic     13915
-Computer Science (CPSC) CPSC        419       Full Stack Web Programming   13382
-Computer Science (CPSC) CPSC        422       Design and Implementation of 10902
-                                              Operating Systems
-Computer Science (CPSC) CPSC        424       Parallel Programming         10945
-                                              Techniques
-Computer Science (CPSC) CPSC        429       Principles of Computer       10910
-                                              System Design
-Computer Science (CPSC) CPSC        431       Computer Music: Algorithmic  10939
-                                              and Heuristic Composition
-Computer Science (CPSC) CPSC        435       Building an Internet Router  10906
-Computer Science (CPSC) CPSC        437       Introduction to Database     10904
-                                              Systems
-Computer Science (CPSC) CPSC        439       Software Engineering         10912
-Computer Science (CPSC) CPSC        446       Data and Information         10898
-                                              Visualization
-Computer Science (CPSC) CPSC        447       Introduction to Quantum      10882
-                                              Computing
-Computer Science (CPSC) CPSC        448       Silicon Compilation          12497
-Computer Science (CPSC) CPSC        455       Economics and Computation    10879
-Computer Science (CPSC) CPSC        459       Building Interactive         10908
-                                              Machines
-Computer Science (CPSC) CPSC        464       Algorithms and their         13207
-                                              Societal Implications
-Computer Science (CPSC) CPSC        465       Theory of Distributed        10876
-                                              Systems
-Computer Science (CPSC) CPSC        468       Computational Complexity     10922
-Computer Science (CPSC) CPSC        472       Intelligent Robotics         10900
-Computer Science (CPSC) CPSC        474       Computational Intelligence   10919
-                                              for Games
-Computer Science (CPSC) CPSC        475       Computational Vision and     10955
-                                              Biological Perception
-Computer Science (CPSC) CPSC        479       Advanced Topics in Computer  13970
-                                              Graphics
-Computer Science (CPSC) CPSC        483       Deep Learning on             15816
-                                              Graph-Structured Data
-Computer Science (CPSC) CPSC        490       Senior Project               10874
-Computer Science (CPSC) CPSC        524       Parallel Programming         10946
-                                              Techniques
-Computer Science (CPSC) CPSC        546       Data and Information         10899
-                                              Visualization
-Computer Science (CPSC) CPSC        547       Introduction to Quantum      10883
-                                              Computing
-Computer Science (CPSC) CPSC        564       Algorithms and their         13388
-                                              Societal Implications
-Computer Science (CPSC) CPSC        574       Computational Intelligence   10920
-                                              for Games
-Computer Science (CPSC) CPSC        644       Geometric and Topological    13093
-                                              Methods in Machine Learning
-Computer Science (CPSC) CSEC        491       Senior Project               10875
+deptname                subject num  title                                 crns
+----------------------- ------- ---- ------------------------------------- -----
+Computer Science (CPSC) CPSC    3340 Creative Embedded Systems             10858
+Computer Science (CPSC) CPSC    3640 Decentralized Payments, Contracts,    11568
+                                     and Finance for Humans and AI              
+Computer Science (CPSC) CPSC    4190 Full Stack Web Programming            10859
+Computer Science (CPSC) CPSC    4260 Building Distributed Systems          14656
+Computer Science (CPSC) CPSC    4310 Computer Music: Algorithmic and       10855
+                                     Heuristic Composition                      
+Computer Science (CPSC) CPSC    4370 Database Systems                      10829
+Computer Science (CPSC) CPSC    4371 Database Design and Implementation    10830
+Computer Science (CPSC) CPSC    4380 Big Data Systems: Trends & Challenges 13435
+Computer Science (CPSC) CPSC    4390 Software Engineering                  10836
+Computer Science (CPSC) CPSC    4410 Verifiable, Private, Decentralized    10820
+                                     Computing in the Age of AI                 
+Computer Science (CPSC) CPSC    4420 Theory of Computation                 13431
+Computer Science (CPSC) CPSC    4480 Silicon Compilation                   12841
+Computer Science (CPSC) CPSC    4540 Software Analysis and Verification    10824
+Computer Science (CPSC) CPSC    4550 Algorithmic Game Theory               11608
+Computer Science (CPSC) CPSC    4570 Sensitive Information in a Connected  10821
+                                     World                                      
+Computer Science (CPSC) CPSC    4585 Probabilistic Programming             14957
+Computer Science (CPSC) CPSC    4590 Building Interactive Machines         10831
+Computer Science (CPSC) CPSC    4610 Statistics and Learning Theory for    14653
+                                     Computer Scientists                        
+Computer Science (CPSC) CPSC    4640 Algorithms and their Societal         10832
+                                     Implications                               
+Computer Science (CPSC) CPSC    4670 Introduction to Cryptography          10822
+Computer Science (CPSC) CPSC    4690 Randomized Algorithms                 10817
+Computer Science (CPSC) CPSC    4710 Trustworthy Deep Learning             13427
+Computer Science (CPSC) CPSC    4720 Intelligent Robotics                  10827
+Computer Science (CPSC) CPSC    4740 Computational Intelligence for Games  10840
+Computer Science (CPSC) CPSC    4750 Computational Vision and Biological   13428
+                                     Perception                                 
+Computer Science (CPSC) CPSC    4791 Building Game Engines                 10861
+Computer Science (CPSC) CPSC    4800 Introduction to Computer Vision       10834
+Computer Science (CPSC) CPSC    4844 Geometric and Topological Methods in  10877
+                                     Machine Learning                           
+Computer Science (CPSC) CPSC    4880 Advances in Frontier AI Models        10818
+Computer Science (CPSC) CPSC    4900 Senior Project                        10843
+Computer Science (CPSC) CPSC    5400 Decentralized Payments, Contracts,    16426
+                                     and Finance for Humans and AI              
+Computer Science (CPSC) CPSC    5410 Verifiable, Private, Decentralized    10867
+                                     Computing in the Age of AI                 
+Computer Science (CPSC) CPSC    5420 Theory of Computation                 14690
+Computer Science (CPSC) CPSC    5540 Software Analysis and Verification    14686
+Computer Science (CPSC) CPSC    5640 Algorithms and their Societal         10887
+                                     Implications                               
+Computer Science (CPSC) CPSC    5740 Computational Intelligence for Games  10900
+Computer Science (CPSC) CPSC    6440 Geometric and Topological Methods in  10875
+                                     Machine Learning                           
+Computer Science (CPSC) CPSC    6940 MS Thesis Research II                 10897
+Computer Science (CPSC) CPSC    7430 Topics in Flow-Based Generative       15527
+                                     Modeling and Optimal Transport             
 ```
 
 ```text
 $ python reg.py -d chem -n 600
-deptname         subjectcode coursenum title            crns
----------------- ----------- --------- ---------------- -----
-Chemistry (CHEM) CHEM        600       Research Seminar 12710
-                                                        12713
-                                                        12716
-                                                        12719
-                                                        12722
-                                                        12724
-                                                        12730
-                                                        12732
-                                                        12734
-                                                        12735
-                                                        12738
-                                                        12740
-                                                        12741
-                                                        12743
-                                                        12745
-                                                        12746
-                                                        12747
-                                                        12748
-                                                        12749
-                                                        12750
-                                                        12751
-                                                        12752
-                                                        12753
-                                                        12754
-                                                        12755
-                                                        12756
-                                                        12757
-                                                        12758
-                                                        12759
-                                                        12760
-                                                        12761
-                                                        12762
-                                                        12763
-                                                        12764
-                                                        12765
-                                                        12766
-                                                        12767
-                                                        12768
-                                                        12770
-                                                        12772
-                                                        12773
-                                                        12774
-                                                        12775
-                                                        12776
-                                                        12777
-                                                        12778
-                                                        12779
-                                                        12780
-                                                        12781
-                                                        12782
+deptname         subject num  title                          crns 
+---------------- ------- ---- ------------------------------ -----
+Chemistry (CHEM) CHEM    6000 Research Seminar               13753
+                                                             13754
+                                                             13755
+                                                             13756
+                                                             13757
+                                                             13758
+                                                             13759
+                                                             13760
+                                                             13761
+                                                             13762
+                                                             13763
+                                                             13764
+                                                             13765
+                                                             13768
+                                                             13769
+                                                             13770
+                                                             13771
+                                                             13772
+                                                             13773
+                                                             13774
+                                                             13775
+                                                             13776
+                                                             13777
+                                                             13778
+                                                             13779
+                                                             13780
+                                                             13781
+                                                             13782
+                                                             13783
+                                                             13784
+                                                             13785
+                                                             13786
+                                                             13787
+                                                             13788
+                                                             13789
+                                                             13790
+                                                             13791
+                                                             13792
+                                                             14754
 ```
 
 ```text
-$ python reg.py -t 'rock formation'
-deptname                       subjectcode coursenum title                 crns
------------------------------- ----------- --------- --------------------- -----
-Earth and Planetary Sciences   EPS         350       Rock Formation in     12074
-(EPS)                                                Mountain Belts
-Earth and Planetary Sciences   EPS         555       Rock Formation in     12076
-(EPS)                                                Mountain Belts
+$ python reg.py -t 'full stack'
+deptname                subject num  title                      crns
+----------------------- ------- ---- -------------------------- -----
+Computer Science (CPSC) CPSC    4190 Full Stack Web Programming 10859
+Computer Science (CPSC) CPSC    5190 Full Stack Web Programming 10902
 ```
 
 ## The `regdetails.py` Program
@@ -421,10 +404,10 @@ Those sections are:
 ### Sample Output for `regdetails.py`
 
 ```text
-$ python regdetails.py 13382
+$ python regdetails.py 10859
 deptcode deptname                subjectcode coursenum
 -------- ----------------------- ----------- ---------
-CPSC     Computer Science (CPSC) CPSC        419      
+CPSC     Computer Science (CPSC) CPSC        4190     
 
 title                     
 --------------------------
@@ -448,58 +431,127 @@ prereqs
 ---------------------------------------------------
 <p class="prerequisites">Prerequisite: CPSC 223</p>
 
-sectionnumber crn   meetinginfo          
-------------- ----- ---------------------
-1             13382 MW 1.00-2.15 @ ML 211
+sectionnumber crn   meetinginfo            
+------------- ----- -----------------------
+1             10859 MW 9.00-10.15 @ WTS A74
+                    HTBA @ TBA             
 
 subjectcode coursenum
 ----------- ---------
-CPSC        419      
-CPSC        519      
+CPSC        4190     
+CPSC        5190     
 
 professors
 ----------
-Alan Weide
-Jay Lim   
+Alan Weide 
 ```
 
 ```text
-$ python regdetails.py 12076
-deptcode deptname                           subjectcode coursenum
--------- ---------------------------------- ----------- ---------
-EPS      Earth and Planetary Sciences (EPS) EPS         555      
+$ python regdetails.py 13753
+deptcode deptname         subjectcode coursenum
+-------- ---------------- ----------- ---------
+CHEM     Chemistry (CHEM) CHEM        6000     
 
-title                           
---------------------------------
-Rock Formation in Mountain Belts
+title           
+----------------
+Research Seminar
 
 descrip                                                                         
 --------------------------------------------------------------------------------
-<p>Examination of the fundamental principles governing the formation of         
-metamorphic and igneous rocks during mountain building. Topics include processes
-of heat and mass transfer in orogenic belts, generation of igneous rocks in     
-continental and subduction settings, ultra-high-pressure and ultra-high-        
-temperature metamorphism, spatial and temporal patterns of petrologic processes 
-throughout geologic time, and pressure-temperature-time paths of metamorphic and
-igneous rocks.</p>                                                              
+<p>Presentation of a student’s research results to the student’s adviser and    
+fellow research group members. Extensive discussion and literature review are   
+normally a part of the series.</p>                                              
 
 prereqs
 -------
 None   
 
-sectionnumber crn   meetinginfo              
-------------- ----- -------------------------
-1             12076 TTh 11.35-12.50 @ KGL 119
-                    HTBA @ TBA               
+sectionnumber crn   meetinginfo
+------------- ----- -----------
+1             13753 HTBA @ TBA 
+2             13754 HTBA @ TBA 
+3             13755 HTBA @ TBA 
+4             13756 HTBA @ TBA 
+5             13757 HTBA @ TBA 
+6             13758 HTBA @ TBA 
+7             13759 HTBA @ TBA 
+8             13760 HTBA @ TBA 
+9             13761 HTBA @ TBA 
+10            13762 HTBA @ TBA 
+11            13763 HTBA @ TBA 
+12            13764 HTBA @ TBA 
+13            13765 HTBA @ TBA 
+14            13768 HTBA @ TBA 
+15            13769 HTBA @ TBA 
+16            13770 HTBA @ TBA 
+17            13771 HTBA @ TBA 
+18            13772 HTBA @ TBA 
+19            13773 HTBA @ TBA 
+20            13774 HTBA @ TBA 
+21            13775 HTBA @ TBA 
+22            13776 HTBA @ TBA 
+23            13777 HTBA @ TBA 
+24            13778 HTBA @ TBA 
+25            13779 HTBA @ TBA 
+26            13780 HTBA @ TBA 
+27            13781 HTBA @ TBA 
+28            13782 HTBA @ TBA 
+29            13783 HTBA @ TBA 
+30            13784 HTBA @ TBA 
+31            13785 HTBA @ TBA 
+32            13786 HTBA @ TBA 
+33            13787 HTBA @ TBA 
+34            13788 HTBA @ TBA 
+35            13789 HTBA @ TBA 
+36            13790 HTBA @ TBA 
+37            13791 HTBA @ TBA 
+38            13792 HTBA @ TBA 
+39            14754 HTBA @ TBA 
 
 subjectcode coursenum
 ----------- ---------
-EPS         350      
-EPS         555      
+CHEM        6000     
 
-professors
-----------
-Jay Ague  
+professors          
+--------------------
+Allison Didychuk    
+Amymarie Bartholomew
+Andrew Miranker     
+Anna Marie Pyle     
+Caitlin Davis       
+Corey O'Hern        
+Craig Crews         
+David Spiegel       
+E. Chui-Ying Yan    
+Eric Arsenault      
+Gregory Craven      
+Hailiang Wang       
+Hongying Shen       
+J Patrick Loria     
+James Mayer         
+Jason Crawford      
+Jonathan Ellman     
+Julie Zimmerman     
+Kathryn Ferguson    
+Krystal Pollitt     
+Lisa Pfefferle      
+Mark Johnson        
+Matthew Simon       
+Nilay Hazari        
+Patrick Holland     
+Patrick Vaccaro     
+Paul Anastas        
+Sarah Slavoff       
+Scott Miller        
+Seth Herzon         
+Stacy Malaker       
+Stavroula Hatzios   
+Stephen Strittmatter
+Tianyu Zhu          
+Timothy Newhouse    
+Victor Batista      
+W. Mark Saltzman    
+Yang Liu 
 ```
 
 ## Source Code Guide
@@ -566,7 +618,7 @@ $ python reg.py -x
 Your `regdetails.py` could handle erroneous command-line arguments "gracefully". These commands illustrate:
 ```
 $ python regdetails.py
-$ python regdetails.py 12488 10034
+$ python regdetails.py 13753 10859
 $ python regdetails.py abc123
 $ python regdetails.py 5718394.7298
 ```
@@ -688,7 +740,7 @@ Part of your grade on this assignment is the score from pylint when run in the d
 Using pylint is easy.
 You can critique one file comprising your programs at a time:
 
-```
+```shell
 python -m pylint reg.py
 python -m pylint regdetails.py
 ...
